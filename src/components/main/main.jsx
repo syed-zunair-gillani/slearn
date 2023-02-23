@@ -9,7 +9,7 @@ const Main = () => {
           {
             [1,2,3].map((item,idx)=>{
               return(
-                <Link href="#" idx={idx} className="flex justify-center items-center flex-col shadow-md rounded-lg py-10 hover:shadow-lg">
+                <Link href="#" key={idx} className="flex justify-center items-center flex-col shadow-md rounded-lg py-10 hover:shadow-lg">
                   <Image src="/images/book-open.png" alt="logo" width={80} height={80}/>
                   <h3 className='font-bold text-2xl mt-2'>KTU</h3>
                 </Link>
