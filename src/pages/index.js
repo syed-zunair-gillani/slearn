@@ -3,10 +3,12 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import Link from 'next/link'
 import { Main } from '@/components/imports'
+import { sanityClient } from '@/config/client'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default function Home({university}) {
+  
   return (
     <>
       <Head>
@@ -16,7 +18,28 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
      
-      <Main/>
+      <Main universitys={university}/>
     </>
   )
 }
+
+
+
+export const getServerSideProps = async (pageContext) => {
+  const query = ` *[ _type == "university"]{
+    university_name,
+    slug,
+    icon{
+      asset->{
+        url
+      }
+    }
+  }`;
+
+  const university = await sanityClient.fetch(query);
+  return {
+    props: {
+      university
+    },
+  }
+}; 

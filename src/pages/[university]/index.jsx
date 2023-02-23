@@ -1,8 +1,9 @@
 // pages/[category]/[product]/[productId].js
+import { Client } from '@/config/client';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-export default function Product() {
+export default function University() {
   const router = useRouter();
   const { category, product, productId } = router.query;
 
@@ -17,6 +18,7 @@ export default function Product() {
   );
 }
 
+
 export async function getServerSideProps({ params }) {
   console.log("🚀 ~ file: index.jsx:21 ~ getServerSideProps ~ params:", params)
   
@@ -26,4 +28,3 @@ export async function getServerSideProps({ params }) {
     },
   };
 }
-
