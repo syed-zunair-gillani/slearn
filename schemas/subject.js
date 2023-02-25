@@ -4,6 +4,43 @@ export default {
   title: "Subject",
   fields: [
     {
+      name: "univeristy",
+      type: "object",
+      fields: [
+        {
+          title: "Select University",
+          name: "selecteduniveristy",
+          type: "reference",
+          to: [{ type: "university" }],
+        },
+      ],
+    },
+    {
+      name: "batch",
+      type: "object",
+      fields: [
+        {
+          title: "Select Batch",
+          name: "selectedbatch",
+          type: "reference",
+          to: [{ type: "batch" }],
+        },
+      ],
+    },
+    {
+      name: "field",
+      type: "object",
+      fields: [
+        {
+          title: "Select Area",
+          name: "selectedarea",
+          type: "reference",
+          to: [{ type: "area_of_field" }],
+        },
+      ],
+    },
+    
+    {
       name: "semester",
       type: "object",
       fields: [
@@ -16,25 +53,32 @@ export default {
       ],
     },
     {
-      name: "subject_name",
+      name: "subject",
+      type: "object",
+      fields: [
+        {
+          title: "Select Subject",
+          name: "selectedsubject",
+          type: "reference",
+          to: [{ type: "allsubjects" }],
+        },
+      ],
+    },
+    {
+      name: "subject_code",
       type: "string",
-      title: "Subject Name",
+      title: "Subject Code",
     },
     {
       title: "Slug",
       name: "slug",
       type: "slug",
       options: {
-        source: "subject_name",
+        source: "subject_code",
         maxLength: 200, // will be ignored if slugify is set
         slugify: (input) =>
           input.toLowerCase().replace(/\s+/g, "-").slice(0, 200),
       },
-    },
-    {
-      name: "subject_code",
-      type: "string",
-      title: "Subject Code",
     },
     {
       title: "Syllabus",
@@ -87,7 +131,6 @@ export default {
        },
      ],
    },
-
 
   ],
 };

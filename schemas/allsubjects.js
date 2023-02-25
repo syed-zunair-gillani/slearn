@@ -1,20 +1,20 @@
 export default {
-     name: "semester",
+     name: "allsubjects",
      type: "document",
-     title: "Semester",
+     title: "All Subjects",
      fields: [
        
        {
-         name: "semester",
+         name: "subject",
          type: "string",
-         title: "Semester",
+         title: "Subject",
        },
        {
          title: "Slug",
          name: "slug",
          type: "slug",
          options: {
-           source: "semester",
+           source: "subject",
            maxLength: 200, // will be ignored if slugify is set
            slugify: (input) =>
              input.toLowerCase().replace(/\s+/g, "-").slice(0, 200),

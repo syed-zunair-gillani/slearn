@@ -18,7 +18,7 @@ export default function Home({university}) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
      
-      <Main universitys={university}/>
+      <Main data={university}/>
     </>
   )
 }
@@ -43,3 +43,4 @@ export const getServerSideProps = async (pageContext) => {
     },
   }
 }; 
+

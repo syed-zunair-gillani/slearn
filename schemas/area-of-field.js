@@ -3,18 +3,7 @@ export default {
   type: "document",
   title: "Area of field",
   fields: [
-    {
-      name: "batch",
-      type: "object",
-      fields: [
-        {
-          title: "Select Batch",
-          name: "selectedbatch",
-          type: "reference",
-          to: [{ type: "batch" }],
-        },
-      ],
-    },
+    
     {
       name: "field",
       type: "string",

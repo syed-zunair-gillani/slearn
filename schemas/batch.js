@@ -3,18 +3,7 @@ export default {
   type: "document",
   title: "Batch",
   fields: [
-    {
-      name: "univeristy",
-      type: "object",
-      fields: [
-        {
-          title: "Select University",
-          name: "selecteduniveristy",
-          type: "reference",
-          to: [{ type: "university" }],
-        },
-      ],
-    },
+    
     {
       name: "year",
       type: "string",
