@@ -39,7 +39,7 @@ export default function Subject({ data }) {
       <div className="container mx-auto px-4 py-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {uniqueSubject.map((field, idx) => {
           return (
-            <h2>subject data</h2>
+            <h2 key={idx}>subject</h2>
           );
         })}
       </div>
