@@ -16,13 +16,13 @@ export default function Semester({ data }) {
       item?.field?.selectedarea?.slug.current === field &&
       item?.semester?.selectedsemester?.slug?.current === semester
   );
-  console.log("🚀 ~ file: index.jsx:11 ~ Fields ~ Data:", Data);
+  // console.log("🚀 ~ file: index.jsx:11 ~ Fields ~ Data:", Data);
 
   const uniqueSubject = [];
-  console.log(
-    "🚀 ~ file: index.jsx:14 ~ University ~ uniqueData:",
-    uniqueSubject
-  );
+  // console.log(
+  //   "🚀 ~ file: index.jsx:14 ~ University ~ uniqueData:",
+  //   uniqueSubject
+  // );
   Data.map((item) => {
     var findItem = uniqueSubject.find(
       (x) =>
@@ -43,9 +43,10 @@ export default function Semester({ data }) {
               key={idx}
               className="flex justify-center items-center flex-col shadow-md rounded-lg py-10 hover:shadow-lg"
             >
-              <h3 className="font-bold text-2xl mt-2">
-                {field?.subject?.selectedsubject?.subject} 
+              <h3 className="font-bold capitalize text-2xl mt-2">
+                {field?.subject?.selectedsubject?.subject}
               </h3>
+              <p className="mt-2 text-gray-500">{field?.subject_code}</p>
             </Link>
           );
         })}

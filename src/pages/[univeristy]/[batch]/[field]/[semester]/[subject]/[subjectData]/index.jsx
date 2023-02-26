@@ -8,7 +8,9 @@ export default function Subject({ data }) {
   // console.log("🚀 ~ file: index.jsx:7 ~ University ~ data:", data)
   const router = useRouter();
   console.log("🚀 ~ file: index.jsx:10 ~ Fields ~ router:", router);
-  const { univeristy, batch, field , semester, subject} = router.query;
+  const { univeristy, batch, field, semester, subject, subjectData } =
+    router.query;
+
   const Data = data.filter(
     (item) =>
       item?.univeristy?.selecteduniveristy?.slug?.current === univeristy &&
@@ -16,7 +18,6 @@ export default function Subject({ data }) {
       item?.field?.selectedarea?.slug.current === field &&
       item?.semester?.selectedsemester?.slug?.current === semester &&
       item?.subject?.selectedsubject?.slug?.current === subject
-
   );
   console.log("🚀 ~ file: index.jsx:11 ~ Fields ~ Data:", Data);
 
@@ -36,16 +37,63 @@ export default function Subject({ data }) {
 
   return (
     <>
-      <div className="container mx-auto px-4 py-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {uniqueSubject.map((field, idx) => {
-          return (
-            <h2 key={idx}>subject data</h2>
-          );
-        })}
-      </div>
+      {subjectData === "question-paper" && <QuestionPaper data={subjectData}/>}
+      {subjectData === "notes" && <Notes data={subjectData}/>}
+      {subjectData === "youtube-lecture" && <YoutubeLecture data={subjectData}/>}
+      {subjectData === "qurstion-papers-answered" && <QuestionAnwerPaper data={subjectData}/>}
+      
     </>
   );
 }
+
+const QuestionPaper = ({data}) => {
+  return (
+    <div className="container mx-auto px-4 py-32 flex gap-8">
+      <div className="w-4/6 bg-blue-200">{data}</div>
+      <div className="w-2/6 bg-green-100">sidebar</div>
+    </div>
+  );
+};
+
+const Notes = ({data}) => {
+  return (
+    <div className="container mx-auto px-4 py-32 flex gap-8">
+      <div className="w-4/6 bg-blue-200">{data}</div>
+      <div className="w-2/6 bg-green-100">sidebar</div>
+    </div>
+  );
+};
+
+const YoutubeLecture = ({data}) => {
+  return (
+    <div className="container mx-auto px-4 py-32 flex gap-8">
+      <div className="w-4/6 bg-blue-200">{data}</div>
+      <div className="w-2/6 bg-green-100">sidebar</div>
+    </div>
+  );
+};
+
+const QuestionAnwerPaper = ({data}) => {
+  return (
+    <div className="container mx-auto px-4 py-32 flex gap-8">
+      <div className="w-4/6 bg-blue-200">{data}</div>
+      <div className="w-2/6 bg-green-100">sidebar</div>
+    </div>
+  );
+};
+
+const NotFound = () => {
+  return (
+    <div className="mt-40 font-bold text-4xl">
+      Not Found
+    </div>
+  );
+};
+
+
+
+
+
 
 export const getServerSideProps = async (pageContext) => {
   const query = ` *[ _type == "subject"]{
