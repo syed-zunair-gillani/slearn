@@ -67,17 +67,36 @@ const QuestionPaper = ({data, uniqueYear}) => {
     <div className="container mx-auto px-4 my-20 flex gap-8">
       <div className="w-4/6">
       {
-        uniqueYear.map((year)=>(
-          
-          questionpapers.filter((item)=>item?.selectedyear?.year === year).map((qp,idx)=>{
-            return(
-              <div className={`p-5 shadow-md border border-gray-200 mb-6 overflow-hidden transition-all duration-300 ease-in-out cursor-pointer rounded-lg ${open === `${idx}${year}` ? 'h-[200px]' : 'h-[80px]'}`} key={idx} onClick={()=>handleOpen(`${idx}${year}`)}>
-                <p className="text-xl font-bold py-2">{qp.title}</p>
-                <div className="mt-10 mb-5 flex justify-center items-center"><a className="bg-blue-500 p-3 px-7 rounded-xl font-semibold text-white shadow-xl" href={qp?.pdf_file?.asset.url} download>Download</a></div>
-              </div>
-            )
-          })
+        uniqueYear.map((year) => (
+          <div key={year}>
+            <h2 className="text-2xl text-center py-6 font-bold mb-4">{year}</h2>
+            {questionpapers
+              .filter((item) => item?.selectedyear?.year === year)
+              .map((qp, idx) => {
+                return (
+                  <div
+                    className={`p-5 shadow-md border border-gray-200 mb-6 overflow-hidden transition-all duration-300 ease-in-out cursor-pointer rounded-lg ${
+                      open === `${idx}${year}` ? 'h-[200px]' : 'h-[80px]'
+                    }`}
+                    key={idx}
+                    onClick={() => handleOpen(`${idx}${year}`)}
+                  >
+                    <p className="text-xl font-bold py-2">{qp.title}</p>
+                    <div className="mt-10 mb-5 flex justify-center items-center">
+                      <a
+                        className="bg-blue-500 p-3 px-7 rounded-xl font-semibold text-white shadow-xl"
+                        href={qp?.pdf_file?.asset.url}
+                        download
+                      >
+                        Download
+                      </a>
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
         ))
+        
       }
       </div>
       <div className="w-2/6 bg-green-100">sidebar</div>
