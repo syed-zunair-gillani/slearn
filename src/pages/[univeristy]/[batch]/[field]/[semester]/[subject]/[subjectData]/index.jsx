@@ -1,15 +1,16 @@
 // pages/[category]/[product]/[productId].js
 import { Client, sanityClient } from "@/config/client";
 import Image from "next/image";
+import {useStete} from 'react'
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function Subject({ data }) {
   // console.log("🚀 ~ file: index.jsx:7 ~ University ~ data:", data)
   const router = useRouter();
-  console.log("🚀 ~ file: index.jsx:10 ~ Fields ~ router:", router);
-  const { univeristy, batch, field, semester, subject, subjectData } =
-    router.query;
+
+  const { univeristy, batch, field, semester, subject, subjectData } = router.query;
 
   const Data = data.filter(
     (item) =>
@@ -19,13 +20,9 @@ export default function Subject({ data }) {
       item?.semester?.selectedsemester?.slug?.current === semester &&
       item?.subject?.selectedsubject?.slug?.current === subject
   );
-  console.log("🚀 ~ file: index.jsx:11 ~ Fields ~ Data:", Data);
 
   const uniqueSubject = [];
-  console.log(
-    "🚀 ~ file: index.jsx:14 ~ University ~ uniqueData:",
-    uniqueSubject
-  );
+
   Data.map((item) => {
     var findItem = uniqueSubject.find(
       (x) =>
@@ -35,30 +32,64 @@ export default function Subject({ data }) {
     if (!findItem) uniqueSubject.push(item);
   });
 
+  let uniqueYear = uniqueSubject[0]?.questionpapers.map(item => item?.selectedyear?.year).filter((value, index, self) => self.indexOf(value) === index)
+
+  const {notes} = uniqueSubject[0]
+  
   return (
     <>
-      {subjectData === "question-paper" && <QuestionPaper data={subjectData}/>}
-      {subjectData === "notes" && <Notes data={subjectData}/>}
+      {subjectData === "question-paper" && <QuestionPaper data={uniqueSubject[0]} uniqueYear={uniqueYear} />}
+      {subjectData === "notes" && <Notes data={notes}/>}
       {subjectData === "youtube-lecture" && <YoutubeLecture data={subjectData}/>}
       {subjectData === "qurstion-papers-answered" && <QuestionAnwerPaper data={subjectData}/>}
-      
     </>
   );
 }
 
-const QuestionPaper = ({data}) => {
+const QuestionPaper = ({data, uniqueYear}) => {
+  const {questionpapers, subject_code, subject, batch} = data
+  console.log("🚀 ~ file: index.jsx:47 ~ QuestionPaper ~ uniqueYear:", uniqueYear, data)
+  const [open, setOpen] = useState(null)
+  console.log("🚀 ~ file: index.jsx:53 ~ QuestionPaper ~ open:", open)
+
+  const handleOpen = (id) =>{
+    if(id === open){
+      return setOpen(null)
+    }
+    setOpen(id)
+  }
+
   return (
-    <div className="container mx-auto px-4 py-32 flex gap-8">
-      <div className="w-4/6 bg-blue-200">{data}</div>
+    <>
+    <h2 className="capitalize text-center text-2xl md:text-4xl font-serif mt-20 font-medium">{subject?.selectedsubject?.subject} {subject_code} Question Papers</h2>
+    <h2 className="uppercase text-center text-2xl text-gray-500 mt-7 font-bold">{batch?.selectedbatch?.year} batch</h2>
+    
+    <div className="container mx-auto px-4 my-20 flex gap-8">
+      <div className="w-4/6">
+      {
+        uniqueYear.map((year)=>(
+          
+          questionpapers.filter((item)=>item?.selectedyear?.year === year).map((qp,idx)=>{
+            return(
+              <div className={`p-5 shadow-md border border-gray-200 mb-6 overflow-hidden transition-all duration-300 ease-in-out cursor-pointer rounded-lg ${open === `${idx}${year}` ? 'h-[200px]' : 'h-[80px]'}`} key={idx} onClick={()=>handleOpen(`${idx}${year}`)}>
+                <p className="text-xl font-bold py-2">{qp.title}</p>
+                <div className="mt-10 mb-5 flex justify-center items-center"><a className="bg-blue-500 p-3 px-7 rounded-xl font-semibold text-white shadow-xl" href={qp?.pdf_file?.asset.url} download>Download</a></div>
+              </div>
+            )
+          })
+        ))
+      }
+      </div>
       <div className="w-2/6 bg-green-100">sidebar</div>
     </div>
+    </>
   );
 };
 
 const Notes = ({data}) => {
   return (
     <div className="container mx-auto px-4 py-32 flex gap-8">
-      <div className="w-4/6 bg-blue-200">{data}</div>
+      <div className="w-4/6 bg-blue-200"></div>
       <div className="w-2/6 bg-green-100">sidebar</div>
     </div>
   );
@@ -100,10 +131,32 @@ export const getServerSideProps = async (pageContext) => {
     slug,
     subject_code,
     syllabus{
-      
+      asset->{
+        url
+      }
     },
-    questionpapers,
-    notes[],
+    questionpapers[]{
+      pdf_file{
+        asset->{
+          url
+        }
+      },
+      selectedyear->{
+        year
+      },
+      title,
+    },
+    driveFolder[]{
+      link
+    },
+    notes[]{
+      link,
+      notestype,
+      selectedmodule->{
+        name
+      },
+      type,
+    },
     univeristy{
       selecteduniveristy->{
         university_name,

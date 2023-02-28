@@ -3,10 +3,12 @@ import { Client, sanityClient } from "@/config/client";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function Subject({ data }) {
   // console.log("🚀 ~ file: index.jsx:7 ~ University ~ data:", data)
   const router = useRouter();
+
   console.log("🚀 ~ file: index.jsx:10 ~ Fields ~ router:", router);
   const { univeristy, batch, field, semester, subject } = router.query;
   const Data = data.filter(
@@ -112,8 +114,28 @@ export const getServerSideProps = async (pageContext) => {
         url
       }
     },
-    questionpapers,
-    notes[],
+    questionpapers[]{
+      pdf_file{
+        asset->{
+          url
+        }
+      },
+      selectedyear->{
+        year
+      },
+      title,
+    },
+    driveFolder[]{
+      link
+    },
+    notes[]{
+      link,
+      notestype,
+      selectedmodule->{
+        name
+      },
+      type,
+    },
     univeristy{
       selecteduniveristy->{
         university_name,

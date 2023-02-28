@@ -100,10 +100,11 @@ export default {
               type: "string",
             },
             {
-               title: "Year",
-               name: "year",
-               type: "string",
-             },
+              title: "Select Year",
+              name: "selectedyear",
+              type: "reference",
+              to: [{ type: "batch" }],
+            },
              {
                title: "PDF file",
                name: "pdf_file",
@@ -114,6 +115,25 @@ export default {
       ],
     },
     {
+      title: "Drive Folder",
+      type: "array",
+      name: "driveFolder",
+      of: [
+        {
+          type: "object",
+          name: "inline",
+          fields: [
+            {
+              title: "Link",
+              name: "link",
+              type: "string",
+            },
+          ],
+        },
+      ],
+    },
+    
+    {
      title: "Notes",
      type: "array",
      name: "notes",
@@ -123,10 +143,41 @@ export default {
          name: "inline",
          fields: [
            {
-             title: "Module",
-             name: "module",
+             title: "Link",
+             name: "link",
              type: "string",
            },
+          {
+            title: 'Type',
+            name: 'type',
+            type: 'string',
+            options: {
+                list: [
+                    { title: 'QBank', value: 'qbank' },
+                    { title: 'Assist', value: 'assist' },
+                ], // <-- predefined values
+                layout: 'radio'
+            }
+          },
+          {
+            title: 'Notes Type',
+            name: 'notestype',
+            type: 'string',
+            options: {
+                list: [
+                    { title: 'Class Notes', value: 'classnotes' },
+                    { title: 'Printed Notes', value: 'printednotes' },
+                ], // <-- predefined values
+                layout: 'radio'
+            }
+          },
+          {
+            title: "Select Module",
+            name: "selectedmodule",
+            type: "reference",
+            to: [{ type: "module" }],
+          },
+           
          ],
        },
      ],
