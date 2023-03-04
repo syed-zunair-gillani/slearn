@@ -35,13 +35,13 @@ export default function Semester({ data }) {
   return (
     <>
     <h2 className="text-center font-bold text-3xl my-10">Subjects</h2>
-      <div className="container mx-auto px-4 py-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="container mx-auto px-4 py-28 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {uniqueSubject.map((field, idx) => {
           return (
             <Link
               href={`${router.asPath}/${field?.subject?.selectedsubject?.slug.current}`}
               key={idx}
-              className="flex justify-center items-center flex-col shadow-md rounded-lg py-10 hover:shadow-lg"
+              className="flex justify-center items-center flex-col border border-gray-100 shadow-md rounded-lg py-20 hover:shadow-lg"
             >
               <h3 className="font-bold capitalize text-2xl mt-2">
                 {field?.subject?.selectedsubject?.subject}

@@ -22,11 +22,11 @@ export default function Batch({data}) {
     <>
     <h2 className="text-center font-bold text-3xl my-10">Area of Fields</h2>
 
-    <div className='container mx-auto px-4 py-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+    <div className='container mx-auto px-4 py-28 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
       {
         uniqueFields.map((field,idx)=>{
           return(
-            <Link href={`${router.asPath}/${field?.field?.selectedarea?.slug.current}`} key={idx} className="flex justify-center items-center flex-col shadow-md rounded-lg py-10 hover:shadow-lg">
+            <Link href={`${router.asPath}/${field?.field?.selectedarea?.slug.current}`} key={idx} className="flex justify-center border border-gray-100 items-center flex-col shadow-md rounded-lg py-20 hover:shadow-lg">
               <Image src={field.field?.selectedarea?.icon?.asset.url} alt="logo" width={80} height={80}/>  
               <h3 className='font-bold text-2xl mt-2'>{field?.field?.selectedarea?.field}</h3>
             </Link>

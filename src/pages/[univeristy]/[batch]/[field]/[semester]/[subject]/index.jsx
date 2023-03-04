@@ -48,7 +48,7 @@ export default function Subject({ data }) {
       <div className="container mx-auto px-4 py-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <a
           href={uniqueSubject[0]?.syllabus?.asset?.url}
-          className="flex justify-center items-center flex-col shadow-md rounded-lg py-20 hover:shadow-lg"
+          className="flex justify-center items-center flex-col shadow-md border border-gray-100 rounded-lg py-20 hover:shadow-lg"
           download={`Syllabus-${uniqueSubject[0]?.subject_code}`}
         >
           <Image
@@ -63,7 +63,7 @@ export default function Subject({ data }) {
 
         <Link
           href={`${router.asPath}/question-paper`}
-          className="flex justify-center items-center flex-col shadow-md rounded-lg py-20 hover:shadow-lg"
+          className="flex justify-center items-center flex-col border border-gray-100 shadow-md rounded-lg py-20 hover:shadow-lg"
         >
           <Image
             src="/images/questionmark.png"
@@ -76,7 +76,7 @@ export default function Subject({ data }) {
 
         <Link
           href={`${router.asPath}/notes`}
-          className="flex justify-center items-center flex-col shadow-md rounded-lg py-20 hover:shadow-lg"
+          className="flex justify-center items-center border border-gray-100 flex-col shadow-md rounded-lg py-20 hover:shadow-lg"
         >
           <Image src="/images/pdf.png" alt="logo" width={80} height={80} />
           <h3 className="font-bold text-2xl mt-2">Notes</h3>
@@ -84,7 +84,7 @@ export default function Subject({ data }) {
 
         <Link
           href={`${router.asPath}/youtube-lecture`}
-          className="flex justify-center items-center flex-col shadow-md rounded-lg py-20 hover:shadow-lg"
+          className="flex justify-center items-center flex-col border border-gray-100 shadow-md rounded-lg py-20 hover:shadow-lg"
         >
           <Image src="/images/youtube.png" alt="logo" width={80} height={80} />
           <h3 className="font-bold text-2xl mt-2">Youtube Lectures</h3>
@@ -92,7 +92,7 @@ export default function Subject({ data }) {
 
         <Link
           href={`${router.asPath}/qurstion-papers-answered`}
-          className="flex relative justify-center items-center flex-col shadow-md rounded-lg py-20 hover:shadow-lg"
+          className="flex relative justify-center items-center border border-gray-100 flex-col shadow-md rounded-lg py-20 hover:shadow-lg"
         >
           <Image src="/images/circle-1.png" alt="logo" width={80} height={80} />
           <h3 className="font-bold text-2xl mt-2">Question Papers Answered</h3>
