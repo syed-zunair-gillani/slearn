@@ -37,7 +37,7 @@ export default function Subject({ data }) {
     .map((item) => item?.selectedyear?.year)
     .filter((value, index, self) => self.indexOf(value) === index);
 
-    let uniqueModule = uniqueSubject[0]?.notes
+  let uniqueModule = uniqueSubject[0]?.notes
     .map((item) => item?.selectedmodule?.name)
     .filter((value, index, self) => self.indexOf(value) === index);
 
@@ -45,16 +45,37 @@ export default function Subject({ data }) {
 
   return (
     <>
+
+    <div className="container mx-auto px-4 py-32 flex gap-8">
+      <div className="w-4/6">
+
       {subjectData === "question-paper" && (
         <QuestionPaper data={uniqueSubject[0]} uniqueYear={uniqueYear} />
       )}
-      {subjectData === "notes" && <Notes data={uniqueSubject[0]} uniqueModule={uniqueModule}/>}
+      {subjectData === "notes" && (
+        <Notes data={uniqueSubject[0]} uniqueModule={uniqueModule} />
+      )}
       {subjectData === "youtube-lecture" && (
         <YoutubeLecture data={subjectData} />
       )}
       {subjectData === "qurstion-papers-answered" && (
         <QuestionAnwerPaper data={subjectData} />
       )}
+        </div>
+        <div className="w-2/6 flex flex-col justify-top items-center p-8">
+        <Image src="/images/logos.png" alt="logo" width={500} height={300} />
+        <div className="pt-1 bg-gray-500 w-28 my-10" />
+        <Image
+          src="/images/sidebarbg.png"
+          alt="logo"
+          width={500}
+          height={300}
+        />
+      </div>
+    </div>
+
+
+      
     </>
   );
 }
@@ -78,15 +99,15 @@ const QuestionPaper = ({ data, uniqueYear }) => {
 
   return (
     <>
-      <h2 className="capitalize text-center text-2xl md:text-4xl font-serif mt-20 font-medium">
+      <h2 className="capitalize text-center text-2xl md:text-4xl font-serif mt-8 font-medium">
         {subject?.selectedsubject?.subject} {subject_code} Question Papers
       </h2>
-      <h2 className="uppercase text-center text-2xl text-gray-500 mt-7 font-bold">
+      <h2 className="uppercase text-center text-2xl mb-20 text-gray-500 mt-7 font-bold">
         {batch?.selectedbatch?.year} batch
       </h2>
 
-      <div className="container mx-auto px-4 my-20 flex gap-16">
-        <div className="w-4/6">
+      
+        <div>
           {uniqueYear.map((year) => (
             <div key={year}>
               <h2 className="text-2xl text-center py-6 font-bold mb-4">
@@ -119,95 +140,171 @@ const QuestionPaper = ({ data, uniqueYear }) => {
             </div>
           ))}
         </div>
-        <div className="w-2/6 flex flex-col justify-center items-center p-8">
-          <Image src="/images/logos.png" alt="logo" width={500} height={300} />
-          <div className="pt-1 bg-gray-500 w-28 my-10" />
-          <Image
-            src="/images/sidebarbg.png"
-            alt="logo"
-            width={500}
-            height={300}
-          />
-        </div>
-      </div>
+        
+    
     </>
   );
 };
 
 const Notes = ({ data, uniqueModule }) => {
   const { notes, subject_code, subject, batch } = data;
-  console.log("🚀 ~ file: index.jsx:134 ~ Notes ~ data:", data)
-  const [openModue, setOpenModule] = useState(null)
-  const [openModueInner, setOpenModueInner] = useState(null)
-  console.log("🚀 ~ file: index.jsx:142 ~ Notes ~ openModueInner:", openModueInner)
-  let count = 0
+  console.log("🚀 ~ :", notes, uniqueModule);
+  const [openModue, setOpenModule] = useState(null);
+  const [openModueInner, setOpenModueInner] = useState(null);
+  let count = 0;
   const HandleNotes = (id) => {
-    if(id === openModue) return setOpenModule(null)
-    setOpenModule(id)
-  }
-  const HandleNotesInner = (id) =>{
-    if(id === openModueInner) return setOpenModueInner(null)
-    setOpenModueInner(id)
-  }
+    if (id === openModue) return setOpenModule(null);
+    setOpenModule(id);
+  };
+  const HandleNotesInner = (id) => {
+    if (id === openModueInner) return setOpenModueInner(null);
+    setOpenModueInner(id);
+  };
 
   return (
     <>
-      <h2 className="capitalize text-center text-2xl md:text-4xl font-serif mt-20 font-medium">
-        {subject?.selectedsubject?.subject} {subject_code} Question Papers
+      <h2 className="capitalize text-center text-2xl md:text-4xl font-serif mt-8 font-medium">
+        {subject?.selectedsubject?.subject} {subject_code} Notes
       </h2>
-      <h2 className="uppercase text-center text-2xl text-gray-500 mt-7 font-bold">
+      <h2 className="uppercase text-center text-2xl mb-20 text-gray-500 mt-7 font-bold">
         {batch?.selectedbatch?.year} batch
       </h2>
-      <div className="container mx-auto px-4 py-32 flex gap-8">
-        <div className="w-4/6">
-          {
-            uniqueModule.map((module,i)=>(
-              notes.filter((item)=>item?.selectedmodule?.name === module).map((d,idx)=>{
-                console.log(d,'d');
-                count++
-                return(
-                  <div>
-                    <h3 onClick={()=>HandleNotes(module+idx)} className="font-semibold text-center text-2xl bg-gray-300 p-4 rounded-md mb-5 cursor-pointer" key={idx}>{`Module ${count}`}</h3>
-                    <div onClick={()=>HandleNotesInner(`${idx}${i}bank`)} className={`shadow-md border cursor-pointer font-bold text-xl text-center text-red-500 border-gray-200 p-4 mb-3 rounded-md ${module+idx === openModue ? 'block' : 'hidden'}`}>{count} - Bank</div>
-                    <div className={`${openModueInner === `${idx}${i}bank` ? 'block' : 'hidden'}`}>
-                      <div className="my-10">
-                          <h3 className="text-2xl text-gray-800 text-center underline">Class Notes</h3>
-                          {
-                            
-                          }
-                          <h3 className="text-2xl text-gray-800 text-center underline">Printed Notes</h3>
+      
+        <div>
+          {uniqueModule.map((module, i) => {
+            count++;
+            return (
+              <div>
+                <h3
+                  onClick={() => HandleNotes(module + i)}
+                  className="font-semibold text-center text-2xl bg-gray-300 p-4 rounded-md mb-5 cursor-pointer"
+                  key={i}
+                >{`Module ${count}`}</h3>
+                <div
+                  onClick={() => HandleNotesInner(`${i}${i}bank`)}
+                  className={`shadow-md border cursor-pointer font-bold text-xl text-center text-red-500 border-gray-200 p-4 mb-3 rounded-md ${
+                    module + i === openModue ? "block" : "hidden"
+                  }`}
+                >
+                  {count} - Bank
+                </div>
+                <div
+                  className={`${
+                    openModueInner === `${i}${i}bank` ? "block" : "hidden"
+                  }`}
+                >
+                  <div className="my-10">
+                    <h3 className="text-2xl text-gray-800 text-center underline">
+                      Class Notes
+                      <div className="flex justify-center items-center flex-col gap-4 my-8">
+                        {notes
+                          .filter(
+                            (item) =>
+                              item?.type === "qbank" &&
+                              item?.notestype === "classnotes" &&
+                              item?.selectedmodule?.name === module
+                          )
+                          .map((classNotes, id) => {
+                            return (
+                              <div key={id} className="bg-gray-50 p-3 px-8 rounded-3xl border border-gray-200 shadow-md hover:shadow-xl ">
+                                <a
+                                  href={classNotes?.link}
+                                  download
+                                  target="_blank"
+                                >
+                                  Download
+                                </a>
+                              </div>
+                            );
+                          })}
                       </div>
-                    </div>
-                    <div onClick={()=>HandleNotesInner(`${idx}${i}asset`)} className={`shadow-md border cursor-pointer font-bold text-xl text-center text-red-500 border-gray-200 p-4 mb-3 rounded-md ${module+idx === openModue ? 'block' : 'hidden'}`}>{count} - Assets</div>
-                    <div className={`${openModueInner === `${idx}${i}asset` ? 'block' : 'hidden'}`}>asset data</div>
+                    </h3>
+                    <h3 className="text-2xl text-gray-800 text-center underline">
+                      Printed Notes
+                      <div className="flex justify-center items-center flex-col gap-4 my-8">
+                        {notes
+                          .filter(
+                            (item) =>
+                              item?.type === "qbank" &&
+                              item?.notestype === "printednotes" &&
+                              item?.selectedmodule?.name === module
+                          )
+                          .map((classNotes, id) => {
+                            return (
+                              <div key={id} className="bg-gray-50 p-3 px-8 rounded-3xl border border-gray-200 shadow-md hover:shadow-xl ">
+                                <a
+                                  href={classNotes?.link}
+                                  download
+                                  target="_blank"
+                                >
+                                  Download
+                                </a>
+                              </div>
+                            );
+                          })}
+                      </div>
+                    </h3>
                   </div>
-                  
-                )
-              })
-            ))
-          }
+                </div>
+                <div
+                  onClick={() => HandleNotesInner(`${i}${i}asset`)}
+                  className={`shadow-md border cursor-pointer font-bold text-xl text-center text-red-500 border-gray-200 p-4 mb-3 rounded-md ${
+                    module + i === openModue ? "block" : "hidden"
+                  }`}
+                >
+                  {count} - Assets
+                </div>
+
+
+                <div
+                  className={`${
+                    openModueInner === `${i}${i}asset` ? "block" : "hidden"
+                  }`}
+                >
+
+
+
+                  <div className="flex justify-center items-center flex-col gap-4 my-8">
+                    {notes
+                      .filter(
+                        (item) =>
+                          item?.type === "assist" &&
+                          item?.selectedmodule?.name === module
+                      )
+                      .map((classNotes, id) => {
+                        return (
+                          <div key={id} className="bg-gray-50 p-3 px-8 rounded-3xl border border-gray-200 shadow-md hover:shadow-xl ">
+                            <a href={classNotes?.link} download target="_blank">
+                              Download
+                            </a>
+                          </div>
+                        );
+                      })}
+                  </div>
+
+
+                </div>
+              </div>
+            );
+          })}
         </div>
-        <div className="w-2/6 bg-green-100">sidebar</div>
-      </div>
     </>
   );
 };
 
 const YoutubeLecture = ({ data }) => {
   return (
-    <div className="container mx-auto px-4 py-32 flex gap-8">
+    
       <div className="w-4/6 bg-blue-200">{data}</div>
-      <div className="w-2/6 bg-green-100">sidebar</div>
-    </div>
+      
   );
 };
 
 const QuestionAnwerPaper = ({ data }) => {
   return (
-    <div className="container mx-auto px-4 py-32 flex gap-8">
-      <div className="w-4/6 bg-blue-200">{data}</div>
+   
       <div className="w-2/6 bg-green-100">sidebar</div>
-    </div>
+
   );
 };
 
