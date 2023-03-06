@@ -63,7 +63,7 @@ export default function YoutubeModule({ data }) {
             return (
               <>
                 <div
-                  className="bg-gray-200 p-5 rounded-md font-semibold text-2xl cursor-pointer"
+                  className="bg-gray-50 boder border-gray-100 p-5 rounded-md shadow-md font-semibold text-2xl cursor-pointer"
                   onClick={() => handleYt(idx)}
                   key={idx}
                 >
