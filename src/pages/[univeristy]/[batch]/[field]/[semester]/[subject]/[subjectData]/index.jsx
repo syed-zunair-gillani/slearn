@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function Subject({ data }) {
+  console.log("🚀 ~ file: index.jsx:10 ~ Subject ~ data:", data)
   // console.log("🚀 ~ file: index.jsx:7 ~ University ~ data:", data)
   const router = useRouter();
 
@@ -41,6 +42,10 @@ export default function Subject({ data }) {
     .map((item) => item?.selectedmodule?.name)
     .filter((value, index, self) => self.indexOf(value) === index);
 
+  let uniqueModuleForYt = uniqueSubject[0]?.youtube_lecture
+    .map((item) => item?.selectedmodule?.name)
+    .filter((value, index, self) => self.indexOf(value) === index);
+
   const { notes } = uniqueSubject[0];
 
   return (
@@ -56,7 +61,7 @@ export default function Subject({ data }) {
         <Notes data={uniqueSubject[0]} uniqueModule={uniqueModule} />
       )}
       {subjectData === "youtube-lecture" && (
-        <YoutubeLecture data={subjectData} />
+        <YoutubeLecture data={uniqueSubject[0]} uniqueModuleForYt={uniqueModuleForYt} />
       )}
       {subjectData === "qurstion-papers-answered" && (
         <QuestionAnwerPaper data={subjectData} />
@@ -148,7 +153,7 @@ const QuestionPaper = ({ data, uniqueYear }) => {
 
 const Notes = ({ data, uniqueModule }) => {
   const { notes, subject_code, subject, batch } = data;
-  console.log("🚀 ~ :", notes, uniqueModule);
+  console.log("🚀 ~ file: index.jsx:156 ~ Notes ~ data:", data)
   const [openModue, setOpenModule] = useState(null);
   const [openModueInner, setOpenModueInner] = useState(null);
   let count = 0;
@@ -292,11 +297,30 @@ const Notes = ({ data, uniqueModule }) => {
   );
 };
 
-const YoutubeLecture = ({ data }) => {
+const YoutubeLecture = ({ data, uniqueModuleForYt }) => {
+  const router = useRouter()
+  const { notes, subject_code, subject, batch } = data;
+  console.log("🚀 ~ file: index.jsx:303 ~ YoutubeLecture ~ data:", data)
+
   return (
-    
-      <div className="w-4/6 bg-blue-200">{data}</div>
+    <>
+      <h2 className="capitalize text-center text-2xl md:text-4xl font-serif mt-8 mb-16 font-medium">
+        {subject?.selectedsubject?.subject} {subject_code} Youtube Lecture
+      </h2>
       
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {
+          uniqueModuleForYt.map((item,idx)=>{
+            return(
+              <Link href={`${router.asPath}/module-${idx+1} `} key={idx} className="flex border border-gray-100 justify-center items-center flex-col shadow-md rounded-lg py-20 hover:shadow-lg">
+              <h3 className='font-bold text-2xl mt-2'>{item}</h3>
+            </Link>
+            )
+          })
+        }
+    
+      </div>
+      </>  
   );
 };
 
@@ -343,6 +367,13 @@ export const getServerSideProps = async (pageContext) => {
       },
       type,
     },
+    youtube_lecture[]{
+      link,
+      title,
+      selectedmodule->{
+        name
+      },
+    },
     univeristy{
       selecteduniveristy->{
         university_name,
@@ -383,7 +414,7 @@ export const getServerSideProps = async (pageContext) => {
         slug,
       }
     }
-
+    
   }`;
 
   const data = await sanityClient.fetch(query);

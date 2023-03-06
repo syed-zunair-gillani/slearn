@@ -39,7 +39,7 @@ export default {
         },
       ],
     },
-    
+
     {
       name: "semester",
       type: "object",
@@ -105,11 +105,11 @@ export default {
               type: "reference",
               to: [{ type: "batch" }],
             },
-             {
-               title: "PDF file",
-               name: "pdf_file",
-               type: "file",
-             },
+            {
+              title: "PDF file",
+              name: "pdf_file",
+              type: "file",
+            },
           ],
         },
       ],
@@ -132,56 +132,86 @@ export default {
         },
       ],
     },
-    
-    {
-     title: "Notes",
-     type: "array",
-     name: "notes",
-     of: [
-       {
-         type: "object",
-         name: "inline",
-         fields: [
-           {
-             title: "Link",
-             name: "link",
-             type: "string",
-           },
-          {
-            title: 'Type',
-            name: 'type',
-            type: 'string',
-            options: {
-                list: [
-                    { title: 'QBank', value: 'qbank' },
-                    { title: 'Assist', value: 'assist' },
-                ], // <-- predefined values
-                layout: 'radio'
-            }
-          },
-          {
-            title: 'Notes Type',
-            name: 'notestype',
-            type: 'string',
-            options: {
-                list: [
-                    { title: 'Class Notes', value: 'classnotes' },
-                    { title: 'Printed Notes', value: 'printednotes' },
-                ], // <-- predefined values
-                layout: 'radio'
-            }
-          },
-          {
-            title: "Select Module",
-            name: "selectedmodule",
-            type: "reference",
-            to: [{ type: "module" }],
-          },
-           
-         ],
-       },
-     ],
-   },
 
+    {
+      title: "Notes",
+      type: "array",
+      name: "notes",
+      of: [
+        {
+          type: "object",
+          name: "inline",
+          fields: [
+            {
+              title: "Link",
+              name: "link",
+              type: "string",
+            },
+            {
+              title: "Type",
+              name: "type",
+              type: "string",
+              options: {
+                list: [
+                  { title: "QBank", value: "qbank" },
+                  { title: "Assist", value: "assist" },
+                ], // <-- predefined values
+                layout: "radio",
+              },
+            },
+            {
+              title: "Notes Type",
+              name: "notestype",
+              type: "string",
+              options: {
+                list: [
+                  { title: "Class Notes", value: "classnotes" },
+                  { title: "Printed Notes", value: "printednotes" },
+                ], // <-- predefined values
+                layout: "radio",
+              },
+            },
+            {
+              title: "Select Module",
+              name: "selectedmodule",
+              type: "reference",
+              to: [{ type: "module" }],
+            },
+          ],
+        },
+      ],
+    },
+
+    {
+      title: "Youtube Lecture",
+      type: "array",
+      name: "youtube_lecture",
+      of: [
+        {
+          type: "object",
+          name: "inline",
+          fields: [
+            {
+              title: "Link",
+              name: "link",
+              type: "string",
+            },
+            {
+              title: "Title",
+              name: "title",
+              type: "string",
+            },
+
+            {
+              title: "Select Module",
+              name: "selectedmodule",
+              type: "reference",
+              to: [{ type: "module" }],
+            },
+          ],
+        },
+      ],
+    },
+    
   ],
 };
