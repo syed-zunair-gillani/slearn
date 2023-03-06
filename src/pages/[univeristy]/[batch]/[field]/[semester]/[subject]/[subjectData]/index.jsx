@@ -179,7 +179,7 @@ const Notes = ({ data, uniqueModule }) => {
           {uniqueModule.map((module, i) => {
             count++;
             return (
-              <div>
+              <div key={i}>
                 <h3
                   onClick={() => HandleNotes(module + i)}
                   className="font-semibold text-center text-2xl bg-gray-300 p-4 rounded-md mb-5 cursor-pointer"
@@ -216,6 +216,7 @@ const Notes = ({ data, uniqueModule }) => {
                                   href={classNotes?.link}
                                   download
                                   target="_blank"
+                                  rel="noreferrer"
                                 >
                                   Download
                                 </a>
@@ -241,6 +242,7 @@ const Notes = ({ data, uniqueModule }) => {
                                   href={classNotes?.link}
                                   download
                                   target="_blank"
+                                  rel="noreferrer"
                                 >
                                   Download
                                 </a>
@@ -279,7 +281,7 @@ const Notes = ({ data, uniqueModule }) => {
                       .map((classNotes, id) => {
                         return (
                           <div key={id} className="bg-gray-50 p-3 px-8 rounded-3xl border border-gray-200 shadow-md hover:shadow-xl ">
-                            <a href={classNotes?.link} download target="_blank">
+                            <a href={classNotes?.link} download target="_blank" rel="noreferrer">
                               Download
                             </a>
                           </div>

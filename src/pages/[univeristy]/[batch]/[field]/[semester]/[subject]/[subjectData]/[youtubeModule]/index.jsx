@@ -40,13 +40,11 @@ export default function YoutubeModule({ data }) {
     if (!findItem) uniqueSubject.push(item);
   });
 
-  const module =
-    youtubeModule.charAt(0).toUpperCase() +
-    youtubeModule.slice(1).replace(/-/g, " ");
+  // const module = youtubeModule.charAt(0).toUpperCase() + youtubeModule.slice(1).replace(/-/g, " ");
 
   const yt = uniqueSubject[0]?.youtube_lecture;
 
-  const ytData = yt.filter((item) => item?.selectedmodule?.name === module);
+  const ytData = yt.filter((item) => item?.selectedmodule?.name === youtubeModule.charAt(0).toUpperCase() + youtubeModule.slice(1).replace(/-/g, " "));
 
   const handleYt = (id) => {
     if (open === id) {
