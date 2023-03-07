@@ -50,6 +50,8 @@ export default function Subject({ data }) {
           href={uniqueSubject[0]?.syllabus?.asset?.url}
           className="flex justify-center items-center flex-col shadow-md border border-gray-100 rounded-lg py-20 hover:shadow-lg"
           download={`Syllabus-${uniqueSubject[0]?.subject_code}`}
+          target="_blank"
+          rel="noreferrer"
         >
           <Image
             src="/images/book-open.png"
