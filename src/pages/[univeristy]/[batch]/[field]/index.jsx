@@ -1,5 +1,6 @@
 // pages/[category]/[product]/[productId].js
 import { Client, sanityClient } from "@/config/client";
+import NotFound from "@/pages/404";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -28,27 +29,32 @@ export default function Fields({ data }) {
 
   return (
     <>
-    <Head>
-    <title>{field}</title>
+      <Head>
+        <title>{field}</title>
+      </Head>
+      {uniqueSemester.length === 0 ? (
+        <NotFound />
+      ) : (
+        <>
+          <h2 className="text-center font-bold text-3xl my-10">Semester</h2>
 
-    </Head>
-    <h2 className="text-center font-bold text-3xl my-10">Semester</h2>
-
-      <div className="container mx-auto px-4 py-28 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {uniqueSemester.map((field, idx) => {
-          return (
-            <Link
-              href={`${router.asPath}/${field?.semester?.selectedsemester?.slug.current}`}
-              key={idx}
-              className="flex justify-center border border-gray-100 items-center flex-col shadow-md rounded-lg py-20 hover:shadow-lg"
-            >
-              <h3 className="font-bold text-2xl mt-2">
-                {field?.semester?.selectedsemester?.semester}
-              </h3>
-            </Link>
-          );
-        })}
-      </div>
+          <div className="container mx-auto px-4 py-28 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {uniqueSemester.map((field, idx) => {
+              return (
+                <Link
+                  href={`${router.asPath}/${field?.semester?.selectedsemester?.slug.current}`}
+                  key={idx}
+                  className="flex justify-center border border-gray-100 items-center flex-col shadow-md rounded-lg py-20 hover:shadow-lg"
+                >
+                  <h3 className="font-bold text-2xl mt-2">
+                    {field?.semester?.selectedsemester?.semester}
+                  </h3>
+                </Link>
+              );
+            })}
+          </div>
+        </>
+      )}
     </>
   );
 }

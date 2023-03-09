@@ -38,46 +38,17 @@ export default function Home({ university }) {
         <meta name="robots" content="max-image-preview:large" />
         <meta property="og:site_name" content="sLearn" />
         <meta property="og:type" content="article" />
-        <meta
-          property="og:image"
-          content="/slearn-logo.png"
-        />
-        <meta
-          property="og:image:secure_url"
-          content="/slearn-logo.png"
-        />
+        <meta property="og:image" content="/slearn-logo.png" />
+        <meta property="og:image:secure_url" content="/slearn-logo.png" />
         <meta name="twitter:card" content="summary" />
-        <meta
-          name="twitter:image"
-          content="/slearn-logo.png"
-        />
+        <meta name="twitter:image" content="/slearn-logo.png" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/slearn-logo.png" />
-        <link
-          rel="apple-touch-icon"
-          sizes="152x152"
-          href="/slearn-logo.png"
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/slearn-logo.png"
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="167x167"
-          href="/slearn-logo.png"
-        />
-        <link
-          href="/slearn-logo.png"
-          rel="icon"
-          sizes="192x192"
-        />
-        <link
-          href="/slearn-logo.png"
-          rel="icon"
-          sizes="128x128"
-        />
+        <link rel="apple-touch-icon" sizes="152x152" href="/slearn-logo.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/slearn-logo.png" />
+        <link rel="apple-touch-icon" sizes="167x167" href="/slearn-logo.png" />
+        <link href="/slearn-logo.png" rel="icon" sizes="192x192" />
+        <link href="/slearn-logo.png" rel="icon" sizes="128x128" />
         <meta name="apple-mobile-web-app-title" content="sLearn" />
         <meta name="application-name" content="sLearn" />
         <meta
@@ -107,9 +78,16 @@ export const getServerSideProps = async (pageContext) => {
   }`;
 
   const university = await sanityClient.fetch(query);
-  return {
-    props: {
-      university,
-    },
-  };
+  if(university.length >= 1){
+    return {
+      props: {
+        university,
+      },
+    };
+  }else{
+    return{
+      notFound: true,
+    }
+  }
+  
 };
