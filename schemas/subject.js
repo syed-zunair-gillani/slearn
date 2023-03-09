@@ -83,7 +83,7 @@ export default {
     {
       title: "Syllabus",
       name: "syllabus",
-      type: "file",
+      type: "string",
     },
     {
       title: "Question Papers",
@@ -108,7 +108,7 @@ export default {
             {
               title: "PDF file",
               name: "pdf_file",
-              type: "file",
+              type: "string",
             },
           ],
         },
@@ -192,7 +192,7 @@ export default {
           name: "inline",
           fields: [
             {
-              title: "Link",
+              title: "Youtube Video Code",
               name: "link",
               type: "string",
             },

@@ -55,6 +55,10 @@ export default function YoutubeModule({ data }) {
 
   return (
     <>
+    <Head>
+    <title className="capitalize">{youtubeModule}</title>
+
+    </Head>
       <div className="container mx-auto px-4 py-32 flex gap-8">
         <div className="w-4/6 flex flex-col gap-5 mt-8">
           {ytData.map((item, idx) => {
@@ -77,7 +81,7 @@ export default function YoutubeModule({ data }) {
                     <iframe
                       width="420"
                       height="315"
-                      src="http://www.youtube.com/embed/6xisazZX9bA"
+                      src={`http://www.youtube.com/embed/${item?.link}`}
                       frameborder="0"
                       allowfullscreen
                     ></iframe>
@@ -106,17 +110,9 @@ export const getServerSideProps = async (pageContext) => {
   const query = ` *[ _type == "subject"]{
     slug,
     subject_code,
-    syllabus{
-      asset->{
-        url
-      }
-    },
+    syllabus,
     questionpapers[]{
-      pdf_file{
-        asset->{
-          url
-        }
-      },
+      pdf_file,
       selectedyear->{
         year
       },

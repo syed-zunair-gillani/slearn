@@ -1,5 +1,6 @@
 // pages/[category]/[product]/[productId].js
 import { Client, sanityClient } from "@/config/client";
+import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -9,7 +10,6 @@ export default function Subject({ data }) {
   // console.log("🚀 ~ file: index.jsx:7 ~ University ~ data:", data)
   const router = useRouter();
 
-  console.log("🚀 ~ file: index.jsx:10 ~ Fields ~ router:", router);
   const { univeristy, batch, field, semester, subject } = router.query;
   const Data = data.filter(
     (item) =>
@@ -19,17 +19,9 @@ export default function Subject({ data }) {
       item?.semester?.selectedsemester?.slug?.current === semester &&
       item?.subject?.selectedsubject?.slug?.current === subject
   );
-  console.log("🚀 ~ file: index.jsx:11 ~ Fields ~ Data:", Data);
 
   const uniqueSubject = [];
-  console.log(
-    "🚀 ~ file: index.jsx:23 ~ Subject ~ uniqueSubject:",
-    uniqueSubject
-  );
-  console.log(
-    "🚀 ~ file: index.jsx:14 ~ University ~ uniqueData:",
-    uniqueSubject
-  );
+  
   Data.map((item) => {
     var findItem = uniqueSubject.find(
       (x) =>
@@ -41,13 +33,16 @@ export default function Subject({ data }) {
 
   return (
     <>
+    <Head>
+    <title>{subject}</title>
+
+    </Head>
       <h2 className="text-center capitalize font-serif font-normal text-3xl mt-20 ">
-        {uniqueSubject[0]?.subject?.selectedsubject?.subject}{" "}
-        {uniqueSubject[0]?.subject_code}
+        {uniqueSubject[0]?.subject?.selectedsubject?.subject}  {uniqueSubject[0]?.subject_code}
       </h2>
       <div className="container mx-auto px-4 py-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <a
-          href={uniqueSubject[0]?.syllabus?.asset?.url}
+          href={uniqueSubject[0]?.syllabus}
           className="flex justify-center items-center flex-col shadow-md border border-gray-100 rounded-lg py-20 hover:shadow-lg"
           download={`Syllabus-${uniqueSubject[0]?.subject_code}`}
           target="_blank"
@@ -111,17 +106,9 @@ export const getServerSideProps = async (pageContext) => {
   const query = ` *[ _type == "subject"]{
     slug,
     subject_code,
-    syllabus{
-      asset->{
-        url
-      }
-    },
+    syllabus,
     questionpapers[]{
-      pdf_file{
-        asset->{
-          url
-        }
-      },
+      pdf_file,
       selectedyear->{
         year
       },

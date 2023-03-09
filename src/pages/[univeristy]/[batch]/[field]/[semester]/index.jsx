@@ -1,5 +1,6 @@
 // pages/[category]/[product]/[productId].js
 import { Client, sanityClient } from "@/config/client";
+import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -34,6 +35,10 @@ export default function Semester({ data }) {
 
   return (
     <>
+    <Head>
+    <title>{semester}</title>
+
+    </Head>
     <h2 className="text-center font-bold text-3xl my-10">Subjects</h2>
       <div className="container mx-auto px-4 py-28 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {uniqueSubject.map((field, idx) => {
@@ -59,9 +64,7 @@ export const getServerSideProps = async (pageContext) => {
   const query = ` *[ _type == "subject"]{
     slug,
     subject_code,
-    syllabus{
-      
-    },
+    syllabus,
     questionpapers,
     notes[],
     univeristy{

@@ -5,6 +5,8 @@ import { useStete } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import NotFound from "@/pages/404";
+import Head from "next/head";
 
 export default function Subject({ data }) {
   console.log("🚀 ~ file: index.jsx:10 ~ Subject ~ data:", data);
@@ -50,8 +52,12 @@ export default function Subject({ data }) {
 
   return (
     <>
-      <div className="container mx-auto px-4 py-32 flex gap-8">
-        <div className="w-4/6">
+    <Head>
+    <title>{subjectData}</title>
+
+    </Head>
+      <div className="container mx-auto px-4 py-32 md:flex gap-8">
+        <div className="md:w-4/6">
           {subjectData === "question-paper" && (
             <QuestionPaper data={uniqueSubject[0]} uniqueYear={uniqueYear} />
           )}
@@ -68,7 +74,7 @@ export default function Subject({ data }) {
             <QuestionAnwerPaper data={subjectData} />
           )}
         </div>
-        <div className="w-2/6 flex flex-col justify-top items-center p-8">
+        <div className="md:w-2/6 flex flex-col justify-top items-center p-8">
           <Image src="/images/logos.png" alt="logo" width={500} height={300} />
           <div className="pt-1 bg-gray-500 w-28 my-10" />
           <Image
@@ -111,6 +117,7 @@ const QuestionPaper = ({ data, uniqueYear }) => {
             {questionpapers
               .filter((item) => item?.selectedyear?.year === year)
               .map((qp, idx) => {
+                console.log("🚀 ~ file: index.jsx:114 ~ .map ~ qp:", qp)
                 return (
                   <div
                     className={`p-5 shadow-md border border-gray-200 mb-6 overflow-hidden transition-all duration-300 ease-in-out cursor-pointer rounded-lg ${
@@ -123,8 +130,10 @@ const QuestionPaper = ({ data, uniqueYear }) => {
                     <div className="mt-10 mb-5 flex justify-center items-center">
                       <a
                         className="bg-blue-500 p-3 px-7 rounded-xl font-semibold text-white shadow-xl"
-                        href={qp?.pdf_file?.asset.url}
+                        href={qp?.pdf_file}
                         download
+                        target="_blank"
+                        rel="noreferrer"
                       >
                         Download
                       </a>
@@ -342,7 +351,9 @@ const YoutubeLecture = ({ data, uniqueModuleForYt }) => {
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {uniqueModuleForYt.map((item, idx) => {
+        {
+          uniqueModuleForYt.length >= 1 ?
+          uniqueModuleForYt?.map((item, idx) => {
           return (
             <Link
               href={`${router.asPath}/module-${idx + 1} `}
@@ -352,7 +363,8 @@ const YoutubeLecture = ({ data, uniqueModuleForYt }) => {
               <h3 className="font-bold text-2xl mt-2">{item}</h3>
             </Link>
           );
-        })}
+        }) : <NotFound/>
+      }
       </div>
     </>
   );
@@ -362,25 +374,15 @@ const QuestionAnwerPaper = ({ data }) => {
   return <div className="w-2/6 bg-green-100">sidebar</div>;
 };
 
-const NotFound = () => {
-  return <div className="mt-40 font-bold text-4xl">Not Found</div>;
-};
+
 
 export const getServerSideProps = async (pageContext) => {
   const query = ` *[ _type == "subject"]{
     slug,
     subject_code,
-    syllabus{
-      asset->{
-        url
-      }
-    },
+    syllabus,
     questionpapers[]{
-      pdf_file{
-        asset->{
-          url
-        }
-      },
+      pdf_file,
       selectedyear->{
         year
       },

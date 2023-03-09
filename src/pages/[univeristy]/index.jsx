@@ -1,5 +1,6 @@
 // pages/[category]/[product]/[productId].js
 import { Client, sanityClient } from '@/config/client';
+import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -17,6 +18,9 @@ export default function University({data}) {
 
   return (
     <>
+    <Head>
+     <title>{univeristy}</title>
+    </Head>
     <h2 className="text-center font-bold text-3xl my-10">Batch</h2>
 
     <div className='container mx-auto px-4 py-28 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
@@ -42,9 +46,7 @@ export const getServerSideProps = async (pageContext) => {
     subject_name,
     slug,
     subject_code,
-    syllabus{
-      
-    },
+    syllabus,
     questionpapers,
     notes[],
     univeristy{
