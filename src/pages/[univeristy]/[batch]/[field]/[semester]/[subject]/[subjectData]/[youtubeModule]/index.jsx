@@ -5,6 +5,7 @@ import { useStete } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import Head from "next/head";
 
 export default function YoutubeModule({ data }) {
   const router = useRouter();
