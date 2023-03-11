@@ -66,7 +66,7 @@ export default function Home({ university }) {
   );
 }
 
-export const getServerSideProps = async (pageContext) => {
+export const getStaticProps = async (pageContext) => {
   const query = ` *[ _type == "university"]{
     university_name,
     slug,

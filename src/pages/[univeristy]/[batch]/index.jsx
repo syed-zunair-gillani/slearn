@@ -70,7 +70,7 @@ export default function Batch({ data }) {
   );
 }
 
-export const getServerSideProps = async (pageContext) => {
+export const getStaticProps = async (pageContext) => {
   const query = ` *[ _type == "subject"]{
     subject_name,
     slug,
@@ -122,3 +122,12 @@ export const getServerSideProps = async (pageContext) => {
     },
   };
 };
+
+
+export async function getStaticPaths() {
+  const paths = [];
+  return {
+    paths,
+    fallback: 'blocking',
+  };
+}
