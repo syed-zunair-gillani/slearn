@@ -37,23 +37,23 @@ export default function Subject({ data }) {
   });
 
   let uniqueYear = uniqueSubject[0]?.questionpapers
-    .map((item) => item?.selectedyear?.year)
+    ?.map((item) => item?.selectedyear?.year)
     .filter((value, index, self) => self.indexOf(value) === index);
 
     let uniqueYearForQPA = uniqueSubject[0]?.questionpapersanswer
-    .map((item) => item?.selectedyear?.year)
+    ?.map((item) => item?.selectedyear?.year)
     .filter((value, index, self) => self.indexOf(value) === index);
 
     
   let uniqueModule = uniqueSubject[0]?.notes
-    .map((item) => item?.selectedmodule?.name)
+    ?.map((item) => item?.selectedmodule?.name)
     .filter((value, index, self) => self.indexOf(value) === index);
 
   let uniqueModuleForYt = uniqueSubject[0]?.youtube_lecture
     ?.map((item) => item?.selectedmodule?.name)
     ?.filter((value, index, self) => self.indexOf(value) === index);
 
-  const { notes } = uniqueSubject[0];
+  // const { notes } = uniqueSubject[0];
 
   return (
     <>
@@ -118,13 +118,13 @@ const QuestionPaper = ({ data, uniqueYear }) => {
       </h2>
 
       <div>
-        {uniqueYear.map((year) => (
+        {uniqueYear?.map((year) => (
           <div key={year}>
             <h2 className="text-2xl text-center py-6 font-bold mb-4">{year}</h2>
             {questionpapers
               .filter((item) => item?.selectedyear?.year === year)
               .map((qp, idx) => {
-                console.log("🚀 ~ file: index.jsx:114 ~ .map ~ qp:", qp);
+        
                 return (
                   <div
                     className={`p-5 shadow-md border border-gray-200 mb-6 overflow-hidden transition-all duration-300 ease-in-out cursor-pointer rounded-lg ${
@@ -157,7 +157,6 @@ const QuestionPaper = ({ data, uniqueYear }) => {
 
 const Notes = ({ data, uniqueModule }) => {
   const { notes, subject_code, subject, batch, driveFolder } = data;
-  console.log("🚀 ~ file: index.jsx:149 ~ Notes ~ data:", data);
 
   const [openModue, setOpenModule] = useState(null);
   const [openFolder, setOpenFolder] = useState(false);
@@ -186,7 +185,7 @@ const Notes = ({ data, uniqueModule }) => {
       </h2>
 
       <div>
-        {uniqueModule.map((module, i) => {
+        {uniqueModule?.map((module, i) => {
           count++;
           return (
             <div key={i}>
