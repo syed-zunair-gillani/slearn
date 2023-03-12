@@ -172,8 +172,12 @@ const Notes = ({ data, uniqueModule }) => {
   const [openModueInner, setOpenModueInner] = useState(null);
   let count = 0;
   const HandleNotes = (id) => {
-    if (id === openModue) return setOpenModule(null);
+    if (id === openModue){
+      setOpenModueInner(null);
+      return setOpenModule(null)
+    };
     setOpenModule(id);
+    setOpenModueInner(null);
   };
   const HandleNotesInner = (id) => {
     if (id === openModueInner) return setOpenModueInner(null);

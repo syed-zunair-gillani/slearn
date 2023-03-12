@@ -35,13 +35,13 @@ export default function University({ data }) {
         </figure>
           
 
-          <div className="px-3 py-5 flex justify-center items-center flex-wrap ">
+          <div className="px-3 py-5 flex justify-center items-center flex-wrap md:gap-5">
             {uniqueData?.map((uni, idx) => {
               return (
                 <Link
                   href={`${router.asPath}/${uni?.batch?.selectedbatch?.slug.current}`}
                   key={idx}
-                  className="batchcard "
+                  className="batchcard w-full md:w-auto"
                 >
                   <h3 className="font-bold text-2xl mt-2">
                     {uni?.batch?.selectedbatch?.year}
