@@ -357,6 +357,9 @@ const Notes = ({ data, uniqueModule }) => {
               </div>
             )}
           </section>
+          <div className="flex justify-center mt-4">
+                <button className="upload_btn">Upload Noates</button>
+          </div>
         </div>
         <div className="md:w-2/6 flex flex-col justify-top items-center px-6">
           <Image src="/images/logos.png" alt="logo" width={500} height={300} />
