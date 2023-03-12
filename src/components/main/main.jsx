@@ -5,7 +5,7 @@ import React from 'react'
 const Main = ({data}) => {
   return (
     <main>
-        <div className='max-w-[1280px] mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-8'>
+        <div className='container mx-auto px-3 py-10 grid grid-cols-1 md:grid-cols-2 gap-8'>
           {
             data.map((uni,idx)=>{
               return(

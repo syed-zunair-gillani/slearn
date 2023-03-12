@@ -37,61 +37,47 @@ export default function Subject({ data }) {
   });
 
   let uniqueYear = uniqueSubject[0]?.questionpapers
-    .map((item) => item?.selectedyear?.year)
+    ?.map((item) => item?.selectedyear?.year)
     .filter((value, index, self) => self.indexOf(value) === index);
 
-    let uniqueYearForQPA = uniqueSubject[0]?.questionpapersanswer
-    .map((item) => item?.selectedyear?.year)
+  let uniqueYearForQPA = uniqueSubject[0]?.questionpapersanswer
+    ?.map((item) => item?.selectedyear?.year)
     .filter((value, index, self) => self.indexOf(value) === index);
 
-    
   let uniqueModule = uniqueSubject[0]?.notes
-    .map((item) => item?.selectedmodule?.name)
+    ?.map((item) => item?.selectedmodule?.name)
     .filter((value, index, self) => self.indexOf(value) === index);
 
   let uniqueModuleForYt = uniqueSubject[0]?.youtube_lecture
     ?.map((item) => item?.selectedmodule?.name)
     ?.filter((value, index, self) => self.indexOf(value) === index);
 
-  const { notes } = uniqueSubject[0];
+  // const { notes } = uniqueSubject[0];
 
   return (
     <>
       <Head>
         <title>{subjectData}</title>
       </Head>
-      <div className="max-w-[1280px] mx-auto px-4 py-6 md:flex gap-8">
-        <div className="md:w-4/6 border-r-[1px] border-gray-100 pr-12">
-          {subjectData === "question-paper" && (
-            <QuestionPaper data={uniqueSubject[0]} uniqueYear={uniqueYear} />
-          )}
-          {subjectData === "notes" && (
-            <Notes data={uniqueSubject[0]} uniqueModule={uniqueModule} />
-          )}
-          {subjectData === "youtube-lecture" && (
-            <YoutubeLecture
-              data={uniqueSubject[0]}
-              uniqueModuleForYt={uniqueModuleForYt}
-            />
-          )}
-          {subjectData === "qurstion-papers-answered" && (
-            <QuestionAnwerPaper
-              data={uniqueSubject[0]}
-              uniqueYear={uniqueYearForQPA}
-            />
-          )}
-        </div>
-        <div className="md:w-2/6 flex flex-col justify-top items-center px-6">
-          <Image src="/images/logos.png" alt="logo" width={500} height={300} />
-          <div className="pt-1 bg-gray-500 w-28 my-10" />
-          <Image
-            src="/images/sidebarbg.png"
-            alt="logo"
-            width={500}
-            height={300}
-          />
-        </div>
-      </div>
+
+      {subjectData === "question-paper" && (
+        <QuestionPaper data={uniqueSubject[0]} uniqueYear={uniqueYear} />
+      )}
+      {subjectData === "notes" && (
+        <Notes data={uniqueSubject[0]} uniqueModule={uniqueModule} />
+      )}
+      {subjectData === "youtube-lecture" && (
+        <YoutubeLecture
+          data={uniqueSubject[0]}
+          uniqueModuleForYt={uniqueModuleForYt}
+        />
+      )}
+      {subjectData === "qurstion-papers-answered" && (
+        <QuestionAnwerPaper
+          data={uniqueSubject[0]}
+          uniqueYear={uniqueYearForQPA}
+        />
+      )}
     </>
   );
 }
@@ -110,46 +96,69 @@ const QuestionPaper = ({ data, uniqueYear }) => {
 
   return (
     <>
-      <h2 className="capitalize text-center text-2xl md:text-4xl font-serif mt-8 font-medium">
-        {subject?.selectedsubject?.subject} {subject_code} Question Papers
-      </h2>
-      <h2 className="uppercase text-center text-2xl mb-20 text-gray-500 mt-7 font-bold">
-        {batch?.selectedbatch?.year} batch
-      </h2>
+      <div className="container mx-auto px-3 py-6 md:flex gap-8">
+        <div className="md:w-4/6 border-r-[1px] border-gray-100 pr-12">
+          <h2 className="capitalize text-center text-2xl md:text-4xl font-serif mt-8 font-medium">
+            {subject?.selectedsubject?.subject} {subject_code} Question Papers
+          </h2>
+          <h2 className="uppercase text-center text-2xl mb-20 text-gray-500 mt-7 font-bold">
+            {batch?.selectedbatch?.year} batch
+          </h2>
 
-      <div>
-        {uniqueYear.map((year) => (
-          <div key={year}>
-            <h2 className="text-2xl text-center py-6 font-bold mb-4">{year}</h2>
-            {questionpapers
-              .filter((item) => item?.selectedyear?.year === year)
-              .map((qp, idx) => {
-                console.log("🚀 ~ file: index.jsx:114 ~ .map ~ qp:", qp);
-                return (
-                  <div
-                    className={`p-5 shadow-md border border-gray-200 mb-6 overflow-hidden transition-all duration-300 ease-in-out cursor-pointer rounded-lg ${
-                      open === `${idx}${year}` ? "h-[200px]" : "h-[80px]"
-                    }`}
-                    key={idx}
-                    onClick={() => handleOpen(`${idx}${year}`)}
-                  >
-                    <p className="text-xl font-bold py-2">{qp.title}</p>
-                    <div className="mt-10 mb-5 flex justify-center items-center">
-                      <a
-                        className="bg-blue-500 p-3 px-7 rounded-xl font-semibold text-white shadow-xl"
-                        href={qp?.pdf_file}
-                        download
-                        target="_blank"
-                        rel="noreferrer"
+          <div>
+            {uniqueYear?.map((year) => (
+              <div key={year}>
+                <h2 className="text-2xl text-center py-6 font-bold mb-4">
+                  {year}
+                </h2>
+                {questionpapers
+                  .filter((item) => item?.selectedyear?.year === year)
+                  .map((qp, idx) => {
+                    return (
+                      <div
+                        className={`p-5 shadow-md border border-gray-200 mb-6 overflow-hidden transition-all duration-300 ease-in-out cursor-pointer rounded-lg 
+                      `}
+                        key={idx}
                       >
-                        Download
-                      </a>
-                    </div>
-                  </div>
-                );
-              })}
+                        <p
+                          className={`text-xl font-bold py-2`}
+                          onClick={() => handleOpen(`${idx}${year}`)}
+                        >
+                          {qp.title}
+                        </p>
+                        <div
+                          className={`mt-10 mb-5 flex justify-center transition-all duration-500 ease-in-out items-center ${
+                            open === `${idx}${year}` ? "block" : "hidden"
+                          }`}
+                        >
+                          <a
+                            className={`bg-blue-500 p-3 px-7 rounded-xl font-semibold text-white shadow-xl`}
+                            href={qp?.pdf_file}
+                            download
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            Download
+                          </a>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+
+        <div className="md:w-2/6 flex flex-col justify-top items-center px-6">
+          <Image src="/images/logos.png" alt="logo" width={500} height={300} />
+          <div className="pt-1 bg-gray-500 w-28 my-10" />
+          <Image
+            src="/images/sidebarbg.png"
+            alt="logo"
+            width={500}
+            height={300}
+          />
+        </div>
       </div>
     </>
   );
@@ -157,7 +166,6 @@ const QuestionPaper = ({ data, uniqueYear }) => {
 
 const Notes = ({ data, uniqueModule }) => {
   const { notes, subject_code, subject, batch, driveFolder } = data;
-  console.log("🚀 ~ file: index.jsx:149 ~ Notes ~ data:", data);
 
   const [openModue, setOpenModule] = useState(null);
   const [openFolder, setOpenFolder] = useState(false);
@@ -178,171 +186,185 @@ const Notes = ({ data, uniqueModule }) => {
 
   return (
     <>
-      <h2 className="capitalize text-center text-2xl md:text-4xl font-serif mt-8 font-medium">
-        {subject?.selectedsubject?.subject} {subject_code} Notes
-      </h2>
-      <h2 className="uppercase text-center text-2xl mb-20 text-gray-500 mt-7 font-bold">
-        {batch?.selectedbatch?.year} batch
-      </h2>
+      <div className="container mx-auto px-3 py-6 md:flex gap-8">
+        <div className="md:w-4/6 border-r-[1px] border-gray-100 pr-12">
+          <h2 className="capitalize text-center text-2xl md:text-4xl font-serif mt-8 font-medium">
+            {subject?.selectedsubject?.subject} {subject_code} Notes
+          </h2>
+          <h2 className="uppercase text-center text-2xl mb-20 text-gray-500 mt-7 font-bold">
+            {batch?.selectedbatch?.year} batch
+          </h2>
 
-      <div>
-        {uniqueModule.map((module, i) => {
-          count++;
-          return (
-            <div key={i}>
-              <h3
-                onClick={() => HandleNotes(module + i)}
-                className="font-semibold text-center text-2xl bg-gray-300 p-4 rounded-md mb-5 cursor-pointer"
-                key={i}
-              >{`Module ${count}`}</h3>
-              <div
-                onClick={() => HandleNotesInner(`${i}${i}bank`)}
-                className={`shadow-md border cursor-pointer font-bold text-xl text-center text-red-500 border-gray-200 p-4 mb-3 rounded-md ${
-                  module + i === openModue ? "block" : "hidden"
-                }`}
-              >
-                {count} - Bank
-              </div>
-              <div
-                className={`${
-                  openModueInner === `${i}${i}bank` ? "block" : "hidden"
-                }`}
-              >
-                <div className="my-10">
-                  <h3 className="text-2xl text-gray-800 text-center underline">
-                    Class Notes
-                    <div className="flex justify-center items-center flex-col gap-4 my-8">
-                      {notes
-                        .filter(
-                          (item) =>
-                            item?.type === "qbank" &&
-                            item?.notestype === "classnotes" &&
-                            item?.selectedmodule?.name === module
-                        )
-                        .map((classNotes, id) => {
-                          return (
-                            <div
-                              key={id}
-                              className="bg-gray-50 p-3 px-8 rounded-3xl border border-gray-200 shadow-md hover:shadow-xl "
-                            >
-                              <a
-                                href={classNotes?.link}
-                                download
-                                target="_blank"
-                                rel="noreferrer"
-                              >
-                                Download
-                              </a>
-                            </div>
-                          );
-                        })}
-                    </div>
-                  </h3>
-                  <h3 className="text-2xl text-gray-800 text-center underline">
-                    Printed Notes
-                    <div className="flex justify-center items-center flex-col gap-4 my-8">
-                      {notes
-                        .filter(
-                          (item) =>
-                            item?.type === "qbank" &&
-                            item?.notestype === "printednotes" &&
-                            item?.selectedmodule?.name === module
-                        )
-                        .map((classNotes, id) => {
-                          return (
-                            <div
-                              key={id}
-                              className="bg-gray-50 p-3 px-8 rounded-3xl border border-gray-200 shadow-md hover:shadow-xl "
-                            >
-                              <a
-                                href={classNotes?.link}
-                                download
-                                target="_blank"
-                                rel="noreferrer"
-                              >
-                                Download
-                              </a>
-                            </div>
-                          );
-                        })}
-                    </div>
-                  </h3>
-                </div>
-              </div>
-              <div
-                onClick={() => HandleNotesInner(`${i}${i}asset`)}
-                className={`shadow-md border cursor-pointer font-bold text-xl text-center text-red-500 border-gray-200 p-4 mb-3 rounded-md ${
-                  module + i === openModue ? "block" : "hidden"
-                }`}
-              >
-                {count} - Assets
-              </div>
-
-              <div
-                className={`${
-                  openModueInner === `${i}${i}asset` ? "block" : "hidden"
-                }`}
-              >
-                <div className="flex justify-center items-center flex-col gap-4 my-8">
-                  {notes
-                    .filter(
-                      (item) =>
-                        item?.type === "assist" &&
-                        item?.selectedmodule?.name === module
-                    )
-                    .map((classNotes, id) => {
-                      return (
-                        <div
-                          key={id}
-                          className="bg-gray-50 p-3 px-8 rounded-3xl border border-gray-200 shadow-md hover:shadow-xl "
-                        >
-                          <a
-                            href={classNotes?.link}
-                            download
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            Download
-                          </a>
-                        </div>
-                      );
-                    })}
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      <section>
-        <div
-          className="border border-gray-200 bg-white shadow p-5 rounded-md text-center font-bold cursor-pointer text-xl"
-          onClick={() => openDriveFolder(1)}
-        >
-          Drive Folder
-        </div>
-        {openFolder && (
-          <div className="flex flex-col justify-center items-center gap-4 my-5">
-            {driveFolder.map((link, id) => {
+          <div>
+            {uniqueModule?.map((module, i) => {
+              count++;
               return (
-                <div
-                  key={id}
-                  className="bg-gray-50 p-3 px-8 rounded-3xl border border-gray-200 shadow-md hover:shadow-xl "
-                >
-                  <a
-                    href={link?.link}
-                    download
-                    target="_blank"
-                    rel="noreferrer"
+                <div key={i}>
+                  <h3
+                    onClick={() => HandleNotes(module + i)}
+                    className="font-semibold text-center text-2xl bg-gray-300 p-4 rounded-md mb-5 cursor-pointer"
+                    key={i}
+                  >{`Module ${count}`}</h3>
+                  <div
+                    onClick={() => HandleNotesInner(`${i}${i}bank`)}
+                    className={`shadow-md border cursor-pointer font-bold text-xl text-center text-red-500 border-gray-200 p-4 mb-3 rounded-md ${
+                      module + i === openModue ? "block" : "hidden"
+                    }`}
                   >
-                    Folder {id + 1}
-                  </a>
+                    {count} - Bank
+                  </div>
+                  <div
+                    className={`${
+                      openModueInner === `${i}${i}bank` ? "block" : "hidden"
+                    }`}
+                  >
+                    <div className="my-10">
+                      <h3 className="text-2xl text-gray-800 text-center underline">
+                        Class Notes
+                        <div className="flex justify-center items-center flex-col gap-4 my-8">
+                          {notes
+                            .filter(
+                              (item) =>
+                                item?.type === "qbank" &&
+                                item?.notestype === "classnotes" &&
+                                item?.selectedmodule?.name === module
+                            )
+                            .map((classNotes, id) => {
+                              return (
+                                <div
+                                  key={id}
+                                  className="bg-gray-50 p-3 px-8 rounded-3xl border border-gray-200 shadow-md hover:shadow-xl "
+                                >
+                                  <a
+                                    href={classNotes?.link}
+                                    download
+                                    target="_blank"
+                                    rel="noreferrer"
+                                  >
+                                    Download
+                                  </a>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </h3>
+                      <h3 className="text-2xl text-gray-800 text-center underline">
+                        Printed Notes
+                        <div className="flex justify-center items-center flex-col gap-4 my-8">
+                          {notes
+                            .filter(
+                              (item) =>
+                                item?.type === "qbank" &&
+                                item?.notestype === "printednotes" &&
+                                item?.selectedmodule?.name === module
+                            )
+                            .map((classNotes, id) => {
+                              return (
+                                <div
+                                  key={id}
+                                  className="bg-gray-50 p-3 px-8 rounded-3xl border border-gray-200 shadow-md hover:shadow-xl "
+                                >
+                                  <a
+                                    href={classNotes?.link}
+                                    download
+                                    target="_blank"
+                                    rel="noreferrer"
+                                  >
+                                    Download
+                                  </a>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </h3>
+                    </div>
+                  </div>
+                  <div
+                    onClick={() => HandleNotesInner(`${i}${i}asset`)}
+                    className={`shadow-md border cursor-pointer font-bold text-xl text-center text-red-500 border-gray-200 p-4 mb-3 rounded-md ${
+                      module + i === openModue ? "block" : "hidden"
+                    }`}
+                  >
+                    {count} - Assets
+                  </div>
+
+                  <div
+                    className={`${
+                      openModueInner === `${i}${i}asset` ? "block" : "hidden"
+                    }`}
+                  >
+                    <div className="flex justify-center items-center flex-col gap-4 my-8">
+                      {notes
+                        .filter(
+                          (item) =>
+                            item?.type === "assist" &&
+                            item?.selectedmodule?.name === module
+                        )
+                        .map((classNotes, id) => {
+                          return (
+                            <div
+                              key={id}
+                              className="bg-gray-50 p-3 px-8 rounded-3xl border border-gray-200 shadow-md hover:shadow-xl "
+                            >
+                              <a
+                                href={classNotes?.link}
+                                download
+                                target="_blank"
+                                rel="noreferrer"
+                              >
+                                Download
+                              </a>
+                            </div>
+                          );
+                        })}
+                    </div>
+                  </div>
                 </div>
               );
             })}
           </div>
-        )}
-      </section>
+
+          <section>
+            <div
+              className="border border-gray-200 bg-white shadow p-5 rounded-md text-center font-bold cursor-pointer text-xl"
+              onClick={() => openDriveFolder(1)}
+            >
+              Drive Folder
+            </div>
+            {openFolder && (
+              <div className="flex flex-col justify-center items-center gap-4 my-5">
+                {driveFolder.map((link, id) => {
+                  return (
+                    <div
+                      key={id}
+                      className="bg-gray-50 p-3 px-8 rounded-3xl border border-gray-200 shadow-md hover:shadow-xl "
+                    >
+                      <a
+                        href={link?.link}
+                        download
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Folder {id + 1}
+                      </a>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </section>
+        </div>
+        <div className="md:w-2/6 flex flex-col justify-top items-center px-6">
+          <Image src="/images/logos.png" alt="logo" width={500} height={300} />
+          <div className="pt-1 bg-gray-500 w-28 my-10" />
+          <Image
+            src="/images/sidebarbg.png"
+            alt="logo"
+            width={500}
+            height={300}
+          />
+        </div>
+      </div>
     </>
   );
 };
@@ -353,6 +375,7 @@ const YoutubeLecture = ({ data, uniqueModuleForYt }) => {
 
   return (
     <>
+    <div className="container mx-auto px-3 py-6 ">
       <h2 className="capitalize text-center text-2xl md:text-4xl font-serif mt-8 mb-16 font-medium">
         {subject?.selectedsubject?.subject} {subject_code} Youtube Lecture
       </h2>
@@ -374,13 +397,17 @@ const YoutubeLecture = ({ data, uniqueModuleForYt }) => {
           <NotFound />
         )}
       </div>
+      </div>
     </>
   );
 };
 
 const QuestionAnwerPaper = ({ data, uniqueYear }) => {
   const { questionpapersanswer, subject_code, subject, batch } = data;
-  console.log("🚀 ~ file: index.jsx:378 ~ QuestionAnwerPaper ~ questionpapersanswer:", questionpapersanswer)
+  console.log(
+    "🚀 ~ file: index.jsx:378 ~ QuestionAnwerPaper ~ questionpapersanswer:",
+    questionpapersanswer
+  );
 
   const [open, setOpen] = useState(null);
 
@@ -391,49 +418,66 @@ const QuestionAnwerPaper = ({ data, uniqueYear }) => {
     setOpen(id);
   };
 
- 
   return (
     <>
-      <h2 className="capitalize text-center text-2xl md:text-4xl font-serif mt-8 font-medium">
-        {subject?.selectedsubject?.subject} {subject_code} Question Papers
-        Answer
-      </h2>
-      <h2 className="uppercase text-center text-2xl mb-20 text-gray-500 mt-7 font-bold">
-        {batch?.selectedbatch?.year} batch
-      </h2>
+      <div className="container mx-auto px-3 py-6 md:flex gap-8">
+        <div className="md:w-4/6 border-r-[1px] border-gray-100 pr-12">
+          <h2 className="capitalize text-center text-2xl md:text-4xl font-serif mt-8 font-medium">
+            {subject?.selectedsubject?.subject} {subject_code} Question Papers
+            Answer
+          </h2>
+          <h2 className="uppercase text-center text-2xl mb-20 text-gray-500 mt-7 font-bold">
+            {batch?.selectedbatch?.year} batch
+          </h2>
 
-      <div>
-        {uniqueYear.map((year) => (
-          <div key={year}>
-            <h2 className="text-2xl text-center py-6 font-bold mb-4">{year}</h2>
-            {questionpapersanswer
-              .filter((item) => item?.selectedyear?.year === year)
-              .map((qp, idx) => {
-                return (
-                  <div
-                    className={`p-5 shadow-md border border-gray-200 mb-6 overflow-hidden transition-all duration-300 ease-in-out cursor-pointer rounded-lg ${
-                      open === `${idx}${year}` ? "h-[200px]" : "h-[80px]"
-                    }`}
-                    key={idx}
-                    onClick={() => handleOpen(`${idx}${year}`)}
-                  >
-                    <p className="text-xl font-bold py-2">{qp.title}</p>
-                    <div className="mt-10 mb-5 flex justify-center items-center">
-                      <a
-                        className="bg-blue-500 p-3 px-7 rounded-xl font-semibold text-white shadow-xl"
-                        href={qp?.pdf_file}
-                        download
-                        target="_blank"
-                        rel="noreferrer"
+          <div>
+            {uniqueYear.map((year) => (
+              <div key={year}>
+                <h2 className="text-2xl text-center py-6 font-bold mb-4">
+                  {year}
+                </h2>
+                {questionpapersanswer
+                  .filter((item) => item?.selectedyear?.year === year)
+                  .map((qp, idx) => {
+                    return (
+                      <div
+                        className={`p-5 shadow-md border border-gray-200 mb-6 overflow-hidden cursor-pointer rounded-lg `}
+                        key={idx}
+                        onClick={() => handleOpen(`${idx}${year}`)}
                       >
-                        Download
-                      </a>
-                    </div>
-                  </div>
-                );
-              })}
+                        <p className="text-xl font-bold py-2">{qp.title}</p>
+                        <div
+                          className={`mt-10 mb-5 flex justify-center items-center ${
+                            open === `${idx}${year}` ? "block" : "hidden"
+                          }`}
+                        >
+                          <a
+                            className="bg-blue-500 p-3 px-7 rounded-xl font-semibold text-white shadow-xl"
+                            href={qp?.pdf_file}
+                            download
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            Download
+                          </a>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+        <div className="md:w-2/6 flex flex-col justify-top items-center px-6">
+          <Image src="/images/logos.png" alt="logo" width={500} height={300} />
+          <div className="pt-1 bg-gray-500 w-28 my-10" />
+          <Image
+            src="/images/sidebarbg.png"
+            alt="logo"
+            width={500}
+            height={300}
+          />
+        </div>
       </div>
     </>
   );

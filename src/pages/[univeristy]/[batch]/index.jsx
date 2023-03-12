@@ -40,7 +40,7 @@ export default function Batch({ data }) {
         <NotFound />
       ) : (
         <>
-          <div className="max-w-[1280px] mx-auto px-4 mb-5 mt-10 grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="container mx-auto px-3 mb-5 mt-10 grid grid-cols-1 md:grid-cols-2 gap-5">
             {uniqueFields.map((field, idx) => {
               return (
                 <Link

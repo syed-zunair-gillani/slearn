@@ -60,7 +60,7 @@ export default function YoutubeModule({ data }) {
     <title className="capitalize">{youtubeModule}</title>
 
     </Head>
-      <div className="container mx-auto px-4 py-32 flex gap-8">
+      <div className="container mx-auto px-3 py-32 flex gap-8">
         <div className="w-4/6 flex flex-col gap-5 mt-8">
           {ytData.map((item, idx) => {
             return (

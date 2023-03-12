@@ -29,13 +29,13 @@ export default function University({ data }) {
       {uniqueData.length === 0 ? (
         <NotFound />
       ) : (
-        <section className=" max-w-[1280px] mx-auto ">
+        <section className=" container mx-auto ">
         <figure className="flex flex-col items-center">
         <Image src="/images/batch.png" alt="batch" width={400} height={100}/>
         </figure>
           
 
-          <div className="px-4 py-5 flex justify-center items-center flex-wrap ">
+          <div className="px-3 py-5 flex justify-center items-center flex-wrap ">
             {uniqueData?.map((uni, idx) => {
               return (
                 <Link
