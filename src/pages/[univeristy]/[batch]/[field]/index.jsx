@@ -36,15 +36,16 @@ export default function Fields({ data }) {
         <NotFound />
       ) : (
         <>
-          <h2 className="text-center font-bold text-3xl my-10">Semester</h2>
+          <h2 className="text-center font-normal text-3xl my-5 text-red-500 ">Semester</h2>
+          <div className="nmrk_sem_title_underline"/>
 
-          <div className="container mx-auto px-4 py-28 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="max-w-[1280px] mx-auto px-4 py-4 grid grid-cols-1 md:grid-cols-2 gap-5">
             {uniqueSemester.map((field, idx) => {
               return (
                 <Link
                   href={`${router.asPath}/${field?.semester?.selectedsemester?.slug.current}`}
                   key={idx}
-                  className="flex justify-center border border-gray-100 items-center flex-col shadow-md rounded-lg py-20 hover:shadow-lg"
+                  className="tnmrk_semester_card"
                 >
                   <h3 className="font-bold text-2xl mt-2">
                     {field?.semester?.selectedsemester?.semester}

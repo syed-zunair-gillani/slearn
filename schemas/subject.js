@@ -212,6 +212,35 @@ export default {
         },
       ],
     },
+    {
+      title: "Question Papers Answer",
+      type: "array",
+      name: "questionpapersanswer",
+      of: [
+        {
+          type: "object",
+          name: "inline",
+          fields: [
+            {
+              title: "Title",
+              name: "title",
+              type: "string",
+            },
+            {
+              title: "Select Year",
+              name: "selectedyear",
+              type: "reference",
+              to: [{ type: "batch" }],
+            },
+            {
+              title: "PDF file",
+              name: "pdf_file",
+              type: "string",
+            },
+          ],
+        },
+      ],
+    }
     
   ],
 };

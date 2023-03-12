@@ -40,6 +40,11 @@ export default function Subject({ data }) {
     .map((item) => item?.selectedyear?.year)
     .filter((value, index, self) => self.indexOf(value) === index);
 
+    let uniqueYearForQPA = uniqueSubject[0]?.questionpapersanswer
+    .map((item) => item?.selectedyear?.year)
+    .filter((value, index, self) => self.indexOf(value) === index);
+
+    
   let uniqueModule = uniqueSubject[0]?.notes
     .map((item) => item?.selectedmodule?.name)
     .filter((value, index, self) => self.indexOf(value) === index);
@@ -52,12 +57,11 @@ export default function Subject({ data }) {
 
   return (
     <>
-    <Head>
-    <title>{subjectData}</title>
-
-    </Head>
-      <div className="container mx-auto px-4 py-32 md:flex gap-8">
-        <div className="md:w-4/6">
+      <Head>
+        <title>{subjectData}</title>
+      </Head>
+      <div className="max-w-[1280px] mx-auto px-4 py-6 md:flex gap-8">
+        <div className="md:w-4/6 border-r-[1px] border-gray-100 pr-12">
           {subjectData === "question-paper" && (
             <QuestionPaper data={uniqueSubject[0]} uniqueYear={uniqueYear} />
           )}
@@ -71,10 +75,13 @@ export default function Subject({ data }) {
             />
           )}
           {subjectData === "qurstion-papers-answered" && (
-            <QuestionAnwerPaper data={subjectData} />
+            <QuestionAnwerPaper
+              data={uniqueSubject[0]}
+              uniqueYear={uniqueYearForQPA}
+            />
           )}
         </div>
-        <div className="md:w-2/6 flex flex-col justify-top items-center p-8">
+        <div className="md:w-2/6 flex flex-col justify-top items-center px-6">
           <Image src="/images/logos.png" alt="logo" width={500} height={300} />
           <div className="pt-1 bg-gray-500 w-28 my-10" />
           <Image
@@ -117,7 +124,7 @@ const QuestionPaper = ({ data, uniqueYear }) => {
             {questionpapers
               .filter((item) => item?.selectedyear?.year === year)
               .map((qp, idx) => {
-                console.log("🚀 ~ file: index.jsx:114 ~ .map ~ qp:", qp)
+                console.log("🚀 ~ file: index.jsx:114 ~ .map ~ qp:", qp);
                 return (
                   <div
                     className={`p-5 shadow-md border border-gray-200 mb-6 overflow-hidden transition-all duration-300 ease-in-out cursor-pointer rounded-lg ${
@@ -328,7 +335,7 @@ const Notes = ({ data, uniqueModule }) => {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Folder {id+1} 
+                    Folder {id + 1}
                   </a>
                 </div>
               );
@@ -351,30 +358,86 @@ const YoutubeLecture = ({ data, uniqueModuleForYt }) => {
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {
-          uniqueModuleForYt.length >= 1 ?
+        {uniqueModuleForYt.length >= 1 ? (
           uniqueModuleForYt?.map((item, idx) => {
-          return (
-            <Link
-              href={`${router.asPath}/module-${idx + 1} `}
-              key={idx}
-              className="flex border border-gray-100 justify-center items-center flex-col shadow-md rounded-lg py-20 hover:shadow-lg"
-            >
-              <h3 className="font-bold text-2xl mt-2">{item}</h3>
-            </Link>
-          );
-        }) : <NotFound/>
-      }
+            return (
+              <Link
+                href={`${router.asPath}/module-${idx + 1} `}
+                key={idx}
+                className="flex border border-gray-100 justify-center items-center flex-col shadow-md rounded-lg py-20 hover:shadow-lg"
+              >
+                <h3 className="font-bold text-2xl mt-2">{item}</h3>
+              </Link>
+            );
+          })
+        ) : (
+          <NotFound />
+        )}
       </div>
     </>
   );
 };
 
-const QuestionAnwerPaper = ({ data }) => {
-  return <div className="w-2/6 bg-green-100">sidebar</div>;
+const QuestionAnwerPaper = ({ data, uniqueYear }) => {
+  const { questionpapersanswer, subject_code, subject, batch } = data;
+  console.log("🚀 ~ file: index.jsx:378 ~ QuestionAnwerPaper ~ questionpapersanswer:", questionpapersanswer)
+
+  const [open, setOpen] = useState(null);
+
+  const handleOpen = (id) => {
+    if (id === open) {
+      return setOpen(null);
+    }
+    setOpen(id);
+  };
+
+ 
+  return (
+    <>
+      <h2 className="capitalize text-center text-2xl md:text-4xl font-serif mt-8 font-medium">
+        {subject?.selectedsubject?.subject} {subject_code} Question Papers
+        Answer
+      </h2>
+      <h2 className="uppercase text-center text-2xl mb-20 text-gray-500 mt-7 font-bold">
+        {batch?.selectedbatch?.year} batch
+      </h2>
+
+      <div>
+        {uniqueYear.map((year) => (
+          <div key={year}>
+            <h2 className="text-2xl text-center py-6 font-bold mb-4">{year}</h2>
+            {questionpapersanswer
+              .filter((item) => item?.selectedyear?.year === year)
+              .map((qp, idx) => {
+                return (
+                  <div
+                    className={`p-5 shadow-md border border-gray-200 mb-6 overflow-hidden transition-all duration-300 ease-in-out cursor-pointer rounded-lg ${
+                      open === `${idx}${year}` ? "h-[200px]" : "h-[80px]"
+                    }`}
+                    key={idx}
+                    onClick={() => handleOpen(`${idx}${year}`)}
+                  >
+                    <p className="text-xl font-bold py-2">{qp.title}</p>
+                    <div className="mt-10 mb-5 flex justify-center items-center">
+                      <a
+                        className="bg-blue-500 p-3 px-7 rounded-xl font-semibold text-white shadow-xl"
+                        href={qp?.pdf_file}
+                        download
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Download
+                      </a>
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+        ))}
+      </div>
+    </>
+  );
 };
-
-
 
 export const getStaticProps = async (pageContext) => {
   const query = ` *[ _type == "subject"]{
@@ -445,7 +508,14 @@ export const getStaticProps = async (pageContext) => {
         subject,
         slug,
       }
-    }
+    },
+    questionpapersanswer[]{
+      pdf_file,
+      selectedyear->{
+        year
+      },
+      title,
+    },
     
   }`;
 
@@ -457,11 +527,10 @@ export const getStaticProps = async (pageContext) => {
   };
 };
 
-
 export async function getStaticPaths() {
   const paths = [];
   return {
     paths,
-    fallback: 'blocking',
+    fallback: "blocking",
   };
 }

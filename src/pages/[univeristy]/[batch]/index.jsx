@@ -40,16 +40,13 @@ export default function Batch({ data }) {
         <NotFound />
       ) : (
         <>
-          <h2 className="text-center font-bold text-3xl my-10">
-            Area of Fields
-          </h2>
-          <div className="container mx-auto px-4 py-28 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="max-w-[1280px] mx-auto px-4 mb-5 mt-10 grid grid-cols-1 md:grid-cols-2 gap-5">
             {uniqueFields.map((field, idx) => {
               return (
                 <Link
                   href={`${router.asPath}/${field?.field?.selectedarea?.slug.current}`}
                   key={idx}
-                  className="flex justify-center border border-gray-100 items-center flex-col shadow-md rounded-lg py-20 hover:shadow-lg"
+                  className="flex justify-center border border-gray-100 items-center flex-col shadow rounded-lg py-[62px]"
                 >
                   <Image
                     src={field.field?.selectedarea?.icon?.asset.url}

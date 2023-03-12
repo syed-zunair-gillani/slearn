@@ -37,13 +37,13 @@ export default function Subject({ data }) {
     <title>{subject}</title>
 
     </Head>
-      <h2 className="text-center capitalize font-serif font-normal text-3xl mt-20 ">
+      <h2 className="text-center capitalize font-serif font-normal text-4xl mt-6 ">
         {uniqueSubject[0]?.subject?.selectedsubject?.subject}  {uniqueSubject[0]?.subject_code}
       </h2>
-      <div className="container mx-auto px-4 py-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="max-w-[1280px] mx-auto px-4 py-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         <a
           href={uniqueSubject[0]?.syllabus}
-          className="flex justify-center items-center flex-col shadow-md border border-gray-100 rounded-lg py-20 hover:shadow-lg"
+          className="subject_details_card flex justify-center items-center flex-col"
           download={`Syllabus-${uniqueSubject[0]?.subject_code}`}
           target="_blank"
           rel="noreferrer"
@@ -51,8 +51,8 @@ export default function Subject({ data }) {
           <Image
             src="/images/book-open.png"
             alt="logo"
-            width={80}
-            height={80}
+            width={60}
+            height={60}
             className="opacity-60"
           />
           <h3 className="font-bold text-2xl mt-2">Syllabus</h3>
@@ -60,40 +60,40 @@ export default function Subject({ data }) {
 
         <Link
           href={`${router.asPath}/question-paper`}
-          className="flex justify-center items-center flex-col border border-gray-100 shadow-md rounded-lg py-20 hover:shadow-lg"
+          className="subject_details_card flex justify-center items-center flex-col"
         >
           <Image
             src="/images/questionmark.png"
             alt="logo"
-            width={80}
-            height={80}
+            width={60}
+            height={60}
           />
           <h3 className="font-bold text-2xl mt-2">Question Papers</h3>
         </Link>
 
         <Link
           href={`${router.asPath}/notes`}
-          className="flex justify-center items-center border border-gray-100 flex-col shadow-md rounded-lg py-20 hover:shadow-lg"
+          className="subject_details_card flex justify-center items-center flex-col"
         >
-          <Image src="/images/pdf.png" alt="logo" width={80} height={80} />
+          <Image src="/images/pdf.png" alt="logo" width={60} height={60} />
           <h3 className="font-bold text-2xl mt-2">Notes</h3>
         </Link>
 
         <Link
           href={`${router.asPath}/youtube-lecture`}
-          className="flex justify-center items-center flex-col border border-gray-100 shadow-md rounded-lg py-20 hover:shadow-lg"
+          className="subject_details_card flex justify-center items-center flex-col"
         >
-          <Image src="/images/youtube.png" alt="logo" width={80} height={80} />
+          <Image src="/images/youtube.png" alt="logo" width={60} height={60} />
           <h3 className="font-bold text-2xl mt-2">Youtube Lectures</h3>
         </Link>
 
         <Link
           href={`${router.asPath}/qurstion-papers-answered`}
-          className="flex relative justify-center items-center border border-gray-100 flex-col shadow-md rounded-lg py-20 hover:shadow-lg"
+          className="subject_details_card flex justify-center relative items-center flex-col"
         >
-          <Image src="/images/circle-1.png" alt="logo" width={80} height={80} />
+          <Image src="/images/circle-1.png" alt="logo" width={60} height={60} />
           <h3 className="font-bold text-2xl mt-2">Question Papers Answered</h3>
-          <div className="bg-[#FF067C] text-white font-light text-base px-4 absolute rounded-tl-lg top-0 left-0 py-1">
+          <div className="bg-[#FF067C] text-white font-light text-base px-4 absolute rounded-tl-md top-0 left-0 py-1">
             EXCLUSIVE
           </div>
         </Link>

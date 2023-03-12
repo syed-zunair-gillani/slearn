@@ -1,6 +1,7 @@
 // pages/[category]/[product]/[productId].js
 import { Client, sanityClient } from "@/config/client";
 import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import NotFound from "../404";
@@ -28,15 +29,19 @@ export default function University({ data }) {
       {uniqueData.length === 0 ? (
         <NotFound />
       ) : (
-        <section>
-          <h2 className="text-center font-bold text-3xl my-10">Batch</h2>
-          <div className="container mx-auto px-4 py-28 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <section className=" max-w-[1280px] mx-auto ">
+        <figure className="flex flex-col items-center">
+        <Image src="/images/batch.png" alt="batch" width={400} height={100}/>
+        </figure>
+          
+
+          <div className="px-4 py-5 flex justify-center items-center flex-wrap ">
             {uniqueData?.map((uni, idx) => {
               return (
                 <Link
                   href={`${router.asPath}/${uni?.batch?.selectedbatch?.slug.current}`}
                   key={idx}
-                  className="flex border border-gray-100 justify-center items-center flex-col shadow-md rounded-lg py-20 hover:shadow-lg"
+                  className="batchcard "
                 >
                   <h3 className="font-bold text-2xl mt-2">
                     {uni?.batch?.selectedbatch?.year}

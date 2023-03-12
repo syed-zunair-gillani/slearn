@@ -39,14 +39,15 @@ export default function Semester({ data }) {
     <title>{semester}</title>
 
     </Head>
-    <h2 className="text-center font-bold text-3xl my-10">Subjects</h2>
-      <div className="container mx-auto px-4 py-28 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <h2 className="text-center font-normal text-3xl my-5 text-red-500 ">Subjects</h2>
+      <div className="nmrk_sem_title_underline"/>
+      <div className="max-w-[1280px] mx-auto px-4 py-4 grid grid-cols-1 md:grid-cols-2 gap-5">
         {uniqueSubject.map((field, idx) => {
           return (
             <Link
               href={`${router.asPath}/${field?.subject?.selectedsubject?.slug.current}`}
               key={idx}
-              className="flex justify-center items-center flex-col border border-gray-100 shadow-md rounded-lg py-20 hover:shadow-lg"
+              className="cse_card"
             >
               <h3 className="font-bold capitalize text-2xl mt-2">
                 {field?.subject?.selectedsubject?.subject}
