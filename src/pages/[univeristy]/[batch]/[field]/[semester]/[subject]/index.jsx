@@ -40,7 +40,7 @@ export default function Subject({ data }) {
       <h2 className="text-center capitalize font-serif font-normal text-4xl mt-6 ">
         {uniqueSubject[0]?.subject?.selectedsubject?.subject}  {uniqueSubject[0]?.subject_code}
       </h2>
-      <div className="max-w-[1280px] mx-auto px-4 py-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="container mx-auto px-3 py-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         <a
           href={uniqueSubject[0]?.syllabus}
           className="subject_details_card flex justify-center items-center flex-col"
@@ -93,7 +93,7 @@ export default function Subject({ data }) {
         >
           <Image src="/images/circle-1.png" alt="logo" width={60} height={60} />
           <h3 className="font-bold text-2xl mt-2">Question Papers Answered</h3>
-          <div className="bg-[#FF067C] text-white font-light text-base px-4 absolute rounded-tl-md top-0 left-0 py-1">
+          <div className="bg-[#FF067C] text-white font-light text-base px-3 absolute rounded-tl-md top-0 left-0 py-1">
             EXCLUSIVE
           </div>
         </Link>

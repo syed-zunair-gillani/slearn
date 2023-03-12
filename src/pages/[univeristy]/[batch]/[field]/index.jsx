@@ -39,7 +39,7 @@ export default function Fields({ data }) {
           <h2 className="text-center font-normal text-3xl my-5 text-red-500 ">Semester</h2>
           <div className="nmrk_sem_title_underline"/>
 
-          <div className="max-w-[1280px] mx-auto px-4 py-4 grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="container mx-auto px-3 py-4 grid grid-cols-1 md:grid-cols-2 gap-5">
             {uniqueSemester.map((field, idx) => {
               return (
                 <Link
