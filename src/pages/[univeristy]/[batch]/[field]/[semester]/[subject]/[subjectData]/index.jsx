@@ -358,7 +358,7 @@ const Notes = ({ data, uniqueModule }) => {
             )}
           </section>
           <div className="flex justify-center mt-4">
-                <button className="upload_btn">Upload Noates</button>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSf_BGg2RiqilOWBSGsWiaSAomJwosh9roKv0lm-8FYPSwJi2w/viewform" rel="noreferrer" target="_blank"  className="upload_btn">Upload Noates</a>
           </div>
         </div>
         <div className="md:w-2/6 flex flex-col justify-top items-center px-6">
