@@ -344,11 +344,12 @@ const Notes = ({ data, uniqueModule }) => {
                             item?.notestype === "ppt" &&
                             item?.selectedmodule?.name === module
                         )
-                        .map((classNotes, id) => {
+                        .map((ppt, id) => {
+                          console.log("🚀 ~ file: index.jsx:348 ~ .map ~ ppt:", ppt)
                           return (
                             <div key={id} className="button3">
                               <a
-                                href={classNotes?.link}
+                                href={ppt?.link}
                                 download
                                 target="_blank"
                                 rel="noreferrer"

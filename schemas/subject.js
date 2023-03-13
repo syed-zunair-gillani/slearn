@@ -148,18 +148,6 @@ export default {
               type: "string",
             },
             {
-              title: "Type",
-              name: "type",
-              type: "string",
-              options: {
-                list: [
-                  { title: "QBank", value: "qbank" },
-                  { title: "Assist", value: "assist" },
-                ], // <-- predefined values
-                layout: "radio",
-              },
-            },
-            {
               title: "Notes Type",
               name: "notestype",
               type: "string",
