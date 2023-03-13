@@ -38,7 +38,7 @@ export default function Home({ university }) {
         <meta name="robots" content="max-image-preview:large" />
         <meta property="og:site_name" content="sLearn" />
         <meta property="og:type" content="article" />
-        <meta property="og:image" content="/slearn-logo.png" />
+        <meta property="og:image" content="https://slearn.net/assets/images/meta/152.png" />
         <meta property="og:image:secure_url" content="/slearn-logo.png" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:image" content="/slearn-logo.png" />
@@ -70,11 +70,7 @@ export const getStaticProps = async (pageContext) => {
   const query = ` *[ _type == "university"]{
     university_name,
     slug,
-    icon{
-      asset->{
-        url
-      }
-    }
+    icon
   }`;
 
   const university = await sanityClient.fetch(query);

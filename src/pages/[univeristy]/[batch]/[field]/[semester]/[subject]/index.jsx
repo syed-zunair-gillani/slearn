@@ -37,7 +37,7 @@ export default function Subject({ data }) {
     <title>{subject}</title>
 
     </Head>
-      <h2 className="text-center capitalize font-serif font-normal text-4xl mt-6 ">
+      <h2 className="text-center capitalize  font-normal text-4xl mt-6 ">
         {uniqueSubject[0]?.subject?.selectedsubject?.subject}  {uniqueSubject[0]?.subject_code}
       </h2>
       <div className="container mx-auto px-3 py-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

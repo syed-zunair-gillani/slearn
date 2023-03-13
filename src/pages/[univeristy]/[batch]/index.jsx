@@ -49,7 +49,7 @@ export default function Batch({ data }) {
                   className="flex justify-center border border-gray-100 items-center flex-col shadow rounded-lg py-[62px]"
                 >
                   <Image
-                    src={field.field?.selectedarea?.icon?.asset.url}
+                    src={field.field?.selectedarea?.icon}
                     alt="logo"
                     width={80}
                     height={80}
@@ -96,11 +96,7 @@ export const getStaticProps = async (pageContext) => {
       selectedarea->{
         field,
         slug,
-        icon{
-          asset->{
-            url
-          }
-        }
+        icon,
       }
     },
     semester{

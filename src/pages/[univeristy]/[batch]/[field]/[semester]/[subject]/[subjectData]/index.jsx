@@ -1,17 +1,19 @@
 // pages/[category]/[product]/[productId].js
 import { Client, sanityClient } from "@/config/client";
 import Image from "next/image";
-import { useStete } from "react";
+import { useEffect, useStete } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import NotFound from "@/pages/404";
 import Head from "next/head";
+import {IoMdCloudDownload} from 'react-icons/io'
 
 export default function Subject({ data }) {
-  console.log("🚀 ~ file: index.jsx:10 ~ Subject ~ data:", data);
+  // console.log("🚀 ~ file: index.jsx:10 ~ Subject ~ data:", data);
   // console.log("🚀 ~ file: index.jsx:7 ~ University ~ data:", data)
   const router = useRouter();
+  console.log("🚀 ~ file: index.jsx:15 ~ Subject ~ router:", router)
 
   const { univeristy, batch, field, semester, subject, subjectData } =
     router.query;
@@ -54,10 +56,28 @@ export default function Subject({ data }) {
 
   // const { notes } = uniqueSubject[0];
 
+  // const [baseURL, setBaseURL] = useState()
+
+  // useEffect(()=>{
+  //   if (typeof window !== "undefined") {
+  //     setBaseURL(window.location.origin)
+  //   }
+  // })
+
+ 
+
   return (
     <>
       <Head>
-        <title>{subjectData}</title>
+        <title>{subject} | {uniqueSubject[0]?.subject_code} | {subjectData} | sLearn</title>
+        <meta
+          name="description"
+          content={`${subject} | ${uniqueSubject[0]?.subject_code} | ${subjectData} | sLearn`}
+        />
+        <meta property="og:url" content={`https://slearn.net${router?.asPath}`} />
+        <meta property="og:type" content="article" />
+        <meta property="og:image" content="https://slearn.net/assets/images/meta/152.png" />
+
       </Head>
 
       {subjectData === "question-paper" && (
@@ -97,8 +117,8 @@ const QuestionPaper = ({ data, uniqueYear }) => {
   return (
     <>
       <div className="container mx-auto px-3 py-6 md:flex gap-8">
-        <div className="md:w-4/6 border-r-[1px] border-gray-100 pr-12">
-          <h2 className="capitalize text-center text-2xl md:text-4xl font-serif mt-8 font-medium">
+        <div className="md:w-[75%] md:border-r-[1px] border-gray-100 md:pr-12 pb-7">
+          <h2 className="capitalize text-center text-2xl md:text-4xl  mt-4 font-medium">
             {subject?.selectedsubject?.subject} {subject_code} Question Papers
           </h2>
           <h2 className="uppercase text-center text-2xl mb-20 text-gray-500 mt-7 font-bold">
@@ -147,9 +167,19 @@ const QuestionPaper = ({ data, uniqueYear }) => {
               </div>
             ))}
           </div>
+          <div className="flex justify-center mt-4">
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSfnQ1EO0E0OW5sjR8DEOhcQOXo4us-VKuUEFhgpjOEjR4FnZg/viewform"
+              rel="noreferrer"
+              target="_blank"
+              className="upload_btn"
+            >
+              Upload Question Paper
+            </a>
+          </div>
         </div>
 
-        <div className="md:w-2/6 flex flex-col justify-top items-center px-6">
+        <div className="md:w-[25%] flex border-t-[1px] md:border-t-0 pt-5 border-gray-100 flex-col justify-top items-center md:px-2">
           <Image src="/images/logos.png" alt="logo" width={500} height={300} />
           <div className="pt-1 bg-gray-500 w-28 my-10" />
           <Image
@@ -166,16 +196,17 @@ const QuestionPaper = ({ data, uniqueYear }) => {
 
 const Notes = ({ data, uniqueModule }) => {
   const { notes, subject_code, subject, batch, driveFolder } = data;
+  console.log("🚀 ~ file: index.jsx:179 ~ Notes ~ notes:", notes)
 
   const [openModue, setOpenModule] = useState(null);
   const [openFolder, setOpenFolder] = useState(false);
   const [openModueInner, setOpenModueInner] = useState(null);
   let count = 0;
   const HandleNotes = (id) => {
-    if (id === openModue){
+    if (id === openModue) {
       setOpenModueInner(null);
-      return setOpenModule(null)
-    };
+      return setOpenModule(null);
+    }
     setOpenModule(id);
     setOpenModueInner(null);
   };
@@ -191,8 +222,8 @@ const Notes = ({ data, uniqueModule }) => {
   return (
     <>
       <div className="container mx-auto px-3 py-6 md:flex gap-8">
-        <div className="md:w-4/6 border-r-[1px] border-gray-100 pr-12">
-          <h2 className="capitalize text-center text-2xl md:text-4xl font-serif mt-8 font-medium">
+        <div className="md:w-[75%] md:border-r-[1px] border-gray-100 md:pr-12">
+          <h2 className="capitalize text-center text-2xl md:text-4xl  mt-8 font-medium">
             {subject?.selectedsubject?.subject} {subject_code} Notes
           </h2>
           <h2 className="uppercase text-center text-2xl mb-20 text-gray-500 mt-7 font-bold">
@@ -206,7 +237,7 @@ const Notes = ({ data, uniqueModule }) => {
                 <div key={i}>
                   <h3
                     onClick={() => HandleNotes(module + i)}
-                    className="font-semibold text-center text-2xl bg-gray-300 p-4 rounded-md mb-5 cursor-pointer"
+                    className="font-semibold text-center tnmrk_accordion text-2xl bg-[#C9C9C9] p-4 rounded-md mb-5  cursor-pointer"
                     key={i}
                   >{`Module ${count}`}</h3>
                   <div
@@ -223,8 +254,9 @@ const Notes = ({ data, uniqueModule }) => {
                     }`}
                   >
                     <div className="my-10">
-                      <h3 className="text-2xl text-gray-800 text-center underline">
-                        Class Notes
+                      <h3 className="">
+                        
+                        <h4 className="text-2xl text-gray-800 text-center underline">Class Notes</h4>
                         <div className="flex justify-center items-center flex-col gap-4 my-8">
                           {notes
                             .filter(
@@ -237,14 +269,16 @@ const Notes = ({ data, uniqueModule }) => {
                               return (
                                 <div
                                   key={id}
-                                  className="bg-gray-50 p-3 px-8 rounded-3xl border border-gray-200 shadow-md hover:shadow-xl "
+                                  className="button3"
                                 >
                                   <a
                                     href={classNotes?.link}
                                     download
                                     target="_blank"
                                     rel="noreferrer"
+                                    className="flex items-center gap-2"
                                   >
+                                  <IoMdCloudDownload size={20}/>
                                     Download
                                   </a>
                                 </div>
@@ -252,8 +286,9 @@ const Notes = ({ data, uniqueModule }) => {
                             })}
                         </div>
                       </h3>
-                      <h3 className="text-2xl text-gray-800 text-center underline">
-                        Printed Notes
+                      <h3>
+                      
+                        <h4 className="text-2xl text-gray-800 text-center underline">Printed Notes</h4>
                         <div className="flex justify-center items-center flex-col gap-4 my-8">
                           {notes
                             .filter(
@@ -266,14 +301,48 @@ const Notes = ({ data, uniqueModule }) => {
                               return (
                                 <div
                                   key={id}
-                                  className="bg-gray-50 p-3 px-8 rounded-3xl border border-gray-200 shadow-md hover:shadow-xl "
+                                  className="button3"
                                 >
                                   <a
                                     href={classNotes?.link}
                                     download
                                     target="_blank"
                                     rel="noreferrer"
+                                    className="flex items-center gap-2"
                                   >
+                                  <IoMdCloudDownload size={20}/>
+                                    Download
+                                  </a>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </h3>
+                      <h3 className="">
+                        <h4 className="text-2xl text-gray-800 text-center underline">PPT</h4>
+                        <div className="flex justify-center items-center flex-col gap-4 my-8">
+                          {notes
+                            .filter(
+                              (item) =>
+                                item?.type === "qbank" &&
+                                item?.notestype === "ppt" &&
+                                item?.selectedmodule?.name === module
+                            )
+                            .map((classNotes, id) => {
+                              return (
+                                <div
+                                  key={id}
+                                  className="button3"
+                                >
+                                  <a
+                                    href={classNotes?.link}
+                                    download
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="flex items-center gap-2"
+                                    
+                                  >
+                                  <IoMdCloudDownload size={20}/>
                                     Download
                                   </a>
                                 </div>
@@ -308,7 +377,7 @@ const Notes = ({ data, uniqueModule }) => {
                           return (
                             <div
                               key={id}
-                              className="bg-gray-50 p-3 px-8 rounded-3xl border border-gray-200 shadow-md hover:shadow-xl "
+                              className="button3"
                             >
                               <a
                                 href={classNotes?.link}
@@ -341,7 +410,7 @@ const Notes = ({ data, uniqueModule }) => {
                   return (
                     <div
                       key={id}
-                      className="bg-gray-50 p-3 px-8 rounded-3xl border border-gray-200 shadow-md hover:shadow-xl "
+                      className="button3"
                     >
                       <a
                         href={link?.link}
@@ -358,10 +427,17 @@ const Notes = ({ data, uniqueModule }) => {
             )}
           </section>
           <div className="flex justify-center mt-4">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSf_BGg2RiqilOWBSGsWiaSAomJwosh9roKv0lm-8FYPSwJi2w/viewform" rel="noreferrer" target="_blank"  className="upload_btn">Upload Noates</a>
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSf_BGg2RiqilOWBSGsWiaSAomJwosh9roKv0lm-8FYPSwJi2w/viewform"
+              rel="noreferrer"
+              target="_blank"
+              className="upload_btn"
+            >
+              Upload Noates
+            </a>
           </div>
         </div>
-        <div className="md:w-2/6 flex flex-col justify-top items-center px-6">
+        <div className="md:w-[25%] flex flex-col justify-top items-center pt-4">
           <Image src="/images/logos.png" alt="logo" width={500} height={300} />
           <div className="pt-1 bg-gray-500 w-28 my-10" />
           <Image
@@ -382,28 +458,28 @@ const YoutubeLecture = ({ data, uniqueModuleForYt }) => {
 
   return (
     <>
-    <div className="container mx-auto px-3 py-6 ">
-      <h2 className="capitalize text-center text-2xl md:text-4xl font-serif mt-8 mb-16 font-medium">
-        {subject?.selectedsubject?.subject} {subject_code} Youtube Lecture
-      </h2>
+      <div className="container mx-auto px-3 py-6 ">
+        <h2 className="capitalize text-center text-2xl md:text-4xl  mt-8 mb-16 font-medium">
+          {subject?.selectedsubject?.subject} {subject_code} Youtube Lecture
+        </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {uniqueModuleForYt.length >= 1 ? (
-          uniqueModuleForYt?.map((item, idx) => {
-            return (
-              <Link
-                href={`${router.asPath}/module-${idx + 1} `}
-                key={idx}
-                className="flex border border-gray-100 justify-center items-center flex-col shadow-md rounded-lg py-20 hover:shadow-lg"
-              >
-                <h3 className="font-bold text-2xl mt-2">{item}</h3>
-              </Link>
-            );
-          })
-        ) : (
-          <NotFound />
-        )}
-      </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {uniqueModuleForYt.length >= 1 ? (
+            uniqueModuleForYt?.map((item, idx) => {
+              return (
+                <Link
+                  href={`${router.asPath}/module-${idx + 1} `}
+                  key={idx}
+                  className="flex border border-gray-100 justify-center items-center flex-col shadow-md rounded-lg py-20 hover:shadow-lg"
+                >
+                  <h3 className="font-bold text-2xl mt-2">{item}</h3>
+                </Link>
+              );
+            })
+          ) : (
+            <NotFound />
+          )}
+        </div>
       </div>
     </>
   );
@@ -428,8 +504,8 @@ const QuestionAnwerPaper = ({ data, uniqueYear }) => {
   return (
     <>
       <div className="container mx-auto px-3 py-6 md:flex gap-8">
-        <div className="md:w-4/6 border-r-[1px] border-gray-100 pr-12">
-          <h2 className="capitalize text-center text-2xl md:text-4xl font-serif mt-8 font-medium">
+        <div className="md:w-[75%] border-r-[1px] border-gray-100 pr-12">
+          <h2 className="capitalize text-center text-2xl md:text-4xl  mt-8 font-medium">
             {subject?.selectedsubject?.subject} {subject_code} Question Papers
             Answer
           </h2>
@@ -475,7 +551,7 @@ const QuestionAnwerPaper = ({ data, uniqueYear }) => {
             ))}
           </div>
         </div>
-        <div className="md:w-2/6 flex flex-col justify-top items-center px-6">
+        <div className="md:w-[25%] flex flex-col justify-top items-center px-6">
           <Image src="/images/logos.png" alt="logo" width={500} height={300} />
           <div className="pt-1 bg-gray-500 w-28 my-10" />
           <Image

@@ -167,6 +167,7 @@ export default {
                 list: [
                   { title: "Class Notes", value: "classnotes" },
                   { title: "Printed Notes", value: "printednotes" },
+                  { title: "PPT", value: "ppt" },
                 ], // <-- predefined values
                 layout: "radio",
               },

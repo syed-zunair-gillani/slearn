@@ -23,10 +23,7 @@ export default {
     {
       title: "Icon/Image",
       name: "icon",
-      type: "image",
-      options: {
-        hotspot: true, // <-- Defaults to false
-      },
+      type: "string",
     },
   ],
 };
