@@ -92,7 +92,7 @@ export default function Subject({ data }) {
           uniqueModuleForYt={uniqueModuleForYt}
         />
       )}
-      {subjectData === "qurstion-papers-answered" && (
+      {subjectData === "question-papers-answered" && (
         <QuestionAnwerPaper
           data={uniqueSubject[0]}
           uniqueYear={uniqueYearForQPA}
@@ -196,7 +196,8 @@ const QuestionPaper = ({ data, uniqueYear }) => {
 
 const Notes = ({ data, uniqueModule }) => {
   const { notes, subject_code, subject, batch, driveFolder } = data;
-  console.log("🚀 ~ file: index.jsx:179 ~ Notes ~ notes:", notes)
+  console.log("🚀 ~ file: index.jsx:199 ~ Notes ~ driveFolder:", driveFolder)
+
 
   const [openModue, setOpenModule] = useState(null);
   const [openFolder, setOpenFolder] = useState(false);
@@ -396,36 +397,39 @@ const Notes = ({ data, uniqueModule }) => {
               );
             })}
           </div>
-
-          <section>
+          {
+            driveFolder.length>0 &&  <section>
             <div
-              className="border border-gray-200 bg-white shadow p-5 rounded-md text-center font-bold cursor-pointer text-xl"
-              onClick={() => openDriveFolder(1)}
-            >
-              Drive Folder
-            </div>
-            {openFolder && (
-              <div className="flex flex-col justify-center items-center gap-4 my-5">
-                {driveFolder.map((link, id) => {
-                  return (
-                    <div
-                      key={id}
-                      className="button3"
-                    >
-                      <a
-                        href={link?.link}
-                        download
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Folder {id + 1}
-                      </a>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </section>
+                 className="border border-gray-200 bg-white shadow p-5 rounded-md text-center font-bold cursor-pointer text-xl"
+                 onClick={() => openDriveFolder(1)}
+               >
+                 Drive Folder
+               </div>
+               {openFolder && (
+                 <div className="flex flex-col justify-center items-center gap-4 my-5">
+                   {driveFolder.map((link, id) => {
+                     return (
+                       <div
+                         key={id}
+                         className="button3"
+                       >
+                         <a
+                           href={link?.link}
+                           download
+                           target="_blank"
+                           rel="noreferrer"
+                         >
+                           Folder {id + 1}
+                         </a>
+                       </div>
+                     );
+                   })}
+                 </div>
+               )}
+             </section>
+           }
+             
+         
           <div className="flex justify-center mt-4">
             <a
               href="https://docs.google.com/forms/d/e/1FAIpQLSf_BGg2RiqilOWBSGsWiaSAomJwosh9roKv0lm-8FYPSwJi2w/viewform"
@@ -551,7 +555,7 @@ const QuestionAnwerPaper = ({ data, uniqueYear }) => {
             ))}
           </div>
         </div>
-        <div className="md:w-[25%] flex flex-col justify-top items-center px-6">
+        <div className="md:w-[25%] flex flex-col justify-top items-center ">
           <Image src="/images/logos.png" alt="logo" width={500} height={300} />
           <div className="pt-1 bg-gray-500 w-28 my-10" />
           <Image

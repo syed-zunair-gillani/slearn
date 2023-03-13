@@ -88,7 +88,7 @@ export default function Subject({ data }) {
         </Link>
 
         <Link
-          href={`${router.asPath}/qurstion-papers-answered`}
+          href={`${router.asPath}/question-papers-answered`}
           className="subject_details_card flex justify-center relative items-center flex-col"
         >
           <Image src="/images/circle-1.png" alt="logo" width={60} height={60} />
