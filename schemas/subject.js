@@ -165,7 +165,7 @@ export default {
               type: "string",
               options: {
                 list: [
-                  { title: "Class Notes", value: "classnotes" },
+                  { title: "Written Notes", value: "writtennotes" },
                   { title: "Printed Notes", value: "printednotes" },
                   { title: "PPT", value: "ppt" },
                 ], // <-- predefined values
